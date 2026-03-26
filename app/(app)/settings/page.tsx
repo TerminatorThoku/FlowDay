@@ -271,6 +271,28 @@ export default function SettingsPage() {
         </CardContent>
       </Card>
 
+      {/* Appearance */}
+      <div className="bg-white/[0.03] border border-white/[0.06] rounded-2xl p-5">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <span className="text-base">{"\uD83C\uDFA8"}</span>
+            <div>
+              <p className="text-sm font-medium text-white/90">Appearance</p>
+              <p className="text-xs text-white/40">Choose your preferred theme</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-0.5 bg-white/[0.04] rounded-full p-0.5">
+            <button className="px-3 py-1.5 rounded-full text-xs bg-white/[0.1] text-white font-medium transition-all">
+              Dark
+            </button>
+            <button className="px-3 py-1.5 rounded-full text-xs text-white/30 hover:text-white/50 cursor-not-allowed transition-all"
+              title="Coming soon">
+              Light
+            </button>
+          </div>
+        </div>
+      </div>
+
       {/* Profile section */}
       <Card className="border-zinc-800 bg-zinc-900/50">
         <CardHeader className="pb-3">

@@ -117,13 +117,14 @@ export default function ProjectsPage() {
             </div>
             <div className="border-t border-white/[0.04] bg-white/[0.01]">
               {project.tasks.map((task, i) => (
-                <div key={i} className="flex items-center gap-3 px-5 py-3 border-b border-white/[0.03] last:border-b-0 hover:bg-white/[0.02] transition-colors">
+                <div key={i}
+                  onClick={() => toggleTask(project.id, i)}
+                  className="flex items-center gap-3 px-5 py-3 border-b border-white/[0.03] last:border-b-0 hover:bg-white/[0.02] transition-colors cursor-pointer select-none">
                   <div
-                    onClick={() => toggleTask(project.id, i)}
-                    className={`w-4 h-4 rounded-full border-2 shrink-0 flex items-center justify-center transition-all cursor-pointer
+                    className={`w-5 h-5 rounded-full border-2 shrink-0 flex items-center justify-center transition-all
                       ${task.done ? 'border-green-500 bg-green-500/20' : 'border-white/20 hover:border-white/40'}`}
                   >
-                    {task.done && <span className="text-[8px] text-green-400">{"\u2713"}</span>}
+                    {task.done && <span className="text-[10px] text-green-400">{"\u2713"}</span>}
                   </div>
                   <span className={`text-sm flex-1 transition-all ${task.done ? 'text-white/30 line-through' : 'text-white/70'}`}>{task.name}</span>
                   <span className="text-[11px] text-white/25 font-mono shrink-0">{task.due}</span>
