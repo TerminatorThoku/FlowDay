@@ -36,7 +36,7 @@ export default function ProjectCard({
     taskCount.total > 0 ? (taskCount.done / taskCount.total) * 100 : 0;
 
   return (
-    <Card className="border-zinc-800/50 bg-zinc-900/50">
+    <Card className="hover:border-white/[0.12] hover:scale-[1.005] transition-all duration-300">
       <CardContent className="p-4">
         <button
           onClick={() => setExpanded(!expanded)}
@@ -51,7 +51,7 @@ export default function ProjectCard({
           <div className="flex-1 space-y-2">
             {/* Top row: name + badges + health */}
             <div className="flex items-center gap-2">
-              <h3 className="text-base font-bold text-zinc-100">
+              <h3 className="text-base font-bold text-white/90">
                 {project.name}
               </h3>
               <PriorityBadge priority={project.priority} />
@@ -62,17 +62,23 @@ export default function ProjectCard({
             </div>
 
             {/* Meta info */}
-            <div className="flex items-center gap-3 text-xs text-zinc-500">
+            <div className="flex items-center gap-3 text-xs text-white/40">
               <span>{project.weekly_hours}h / week</span>
               {project.tech_stack && (
-                <span className="truncate">{project.tech_stack}</span>
+                <div className="flex flex-wrap gap-1">
+                  {project.tech_stack.split(",").map((tech, i) => (
+                    <span key={i} className="text-[10px] bg-white/[0.04] rounded-md px-1.5 py-0.5 text-white/32">
+                      {tech.trim()}
+                    </span>
+                  ))}
+                </div>
               )}
             </div>
 
             {/* Progress bar */}
             <div className="flex items-center gap-2">
-              <Progress value={progressPercent} className="h-1.5 flex-1" />
-              <span className="text-xs text-zinc-500">
+              <Progress value={progressPercent} className="h-[2px] flex-1" />
+              <span className="text-xs text-white/32 font-mono">
                 {taskCount.done}/{taskCount.total}
               </span>
             </div>
@@ -92,7 +98,7 @@ export default function ProjectCard({
 
         {/* Expanded children (tasks) */}
         {expanded && children && (
-          <div className="mt-3 border-t border-zinc-800/50 pt-3">{children}</div>
+          <div className="mt-3 border-t border-white/[0.06] pt-3">{children}</div>
         )}
       </CardContent>
     </Card>

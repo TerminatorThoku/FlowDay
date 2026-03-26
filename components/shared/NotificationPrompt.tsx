@@ -2,8 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Bell, X } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface NotificationPromptProps {
   permission: NotificationPermission;
@@ -16,7 +15,7 @@ export default function NotificationPrompt({
   permission,
   onRequestPermission,
 }: NotificationPromptProps) {
-  const [dismissed, setDismissed] = useState(true); // Start hidden to avoid flash
+  const [dismissed, setDismissed] = useState(true);
   const [requesting, setRequesting] = useState(false);
 
   useEffect(() => {
@@ -26,7 +25,6 @@ export default function NotificationPrompt({
     }
   }, []);
 
-  // Don't show if already granted, denied, or dismissed
   if (permission !== "default" || dismissed) {
     return null;
   }
@@ -43,46 +41,51 @@ export default function NotificationPrompt({
   };
 
   return (
-    <Card className="border-orange-500/20 bg-zinc-900/80">
-      <CardContent className="p-4">
-        <div className="flex items-start gap-3">
-          <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-orange-500/10">
-            <Bell className="h-5 w-5 text-orange-500" />
-          </div>
-          <div className="flex-1">
-            <p className="text-sm font-medium text-zinc-200">
-              Enable notifications
-            </p>
-            <p className="mt-0.5 text-xs text-zinc-500">
-              Never miss a class or break a streak
-            </p>
-            <div className="mt-3 flex items-center gap-2">
-              <Button
-                onClick={handleAllow}
-                disabled={requesting}
-                size="sm"
-                className="bg-orange-500 text-white hover:bg-orange-600"
-              >
-                {requesting ? "Requesting..." : "Allow"}
-              </Button>
-              <Button
-                onClick={handleDismiss}
-                variant="ghost"
-                size="sm"
-                className="text-zinc-500 hover:text-zinc-300"
-              >
-                Not now
-              </Button>
+    <AnimatePresence>
+      {!dismissed && (
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -10 }}
+          transition={{ duration: 0.3 }}
+          className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.06] rounded-2xl p-4"
+        >
+          <div className="flex items-start gap-3">
+            <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-orange-500/10">
+              <Bell className="h-5 w-5 text-orange-400" />
             </div>
+            <div className="flex-1">
+              <p className="text-sm font-medium text-white/90">
+                Enable notifications
+              </p>
+              <p className="mt-0.5 text-xs text-white/32">
+                Never miss a class or break a streak
+              </p>
+              <div className="mt-3 flex items-center gap-3">
+                <button
+                  onClick={handleAllow}
+                  disabled={requesting}
+                  className="bg-orange-500 text-black rounded-xl px-4 py-1.5 text-sm font-medium hover:bg-orange-400 active:scale-[0.97] transition-all disabled:opacity-50"
+                >
+                  {requesting ? "Requesting..." : "Allow"}
+                </button>
+                <button
+                  onClick={handleDismiss}
+                  className="text-white/32 text-sm hover:text-white/55 cursor-pointer transition-colors"
+                >
+                  Not now
+                </button>
+              </div>
+            </div>
+            <button
+              onClick={handleDismiss}
+              className="rounded-full p-1 text-white/20 hover:bg-white/[0.05] hover:text-white/40 transition-all"
+            >
+              <X className="h-4 w-4" />
+            </button>
           </div>
-          <button
-            onClick={handleDismiss}
-            className="rounded-full p-1 text-zinc-600 hover:bg-zinc-800 hover:text-zinc-400"
-          >
-            <X className="h-4 w-4" />
-          </button>
-        </div>
-      </CardContent>
-    </Card>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }

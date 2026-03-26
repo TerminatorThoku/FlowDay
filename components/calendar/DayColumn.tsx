@@ -38,18 +38,18 @@ export default function DayColumn({
   return (
     <div
       className={cn(
-        "relative min-w-[140px] flex-shrink-0 border-r border-zinc-800/50",
-        isToday && "border-l-2 border-l-orange-500/40"
+        "relative min-w-[140px] flex-shrink-0 border-r border-white/[0.04]",
+        isToday && "bg-white/[0.02]"
       )}
     >
       {/* Day header */}
       <div
         className={cn(
-          "sticky top-0 z-10 flex flex-col items-center border-b border-zinc-800/50 bg-zinc-950 py-2",
-          isToday && "bg-zinc-900/80"
+          "sticky top-0 z-10 flex flex-col items-center border-b border-white/[0.04] bg-zinc-950 py-2",
+          isToday && "bg-white/[0.03]"
         )}
       >
-        <span className="text-xs text-zinc-500">{dayName}</span>
+        <span className="text-xs text-white/40">{dayName}</span>
         <span
           className={cn(
             "flex h-7 w-7 items-center justify-center rounded-full text-sm font-semibold",
@@ -68,7 +68,7 @@ export default function DayColumn({
         {Array.from({ length: TOTAL_HOURS }, (_, i) => (
           <div
             key={i}
-            className="absolute left-0 right-0 border-t border-zinc-800/30"
+            className="absolute left-0 right-0 border-t border-white/[0.04]"
             style={{ top: `${i * HOUR_HEIGHT}px` }}
           />
         ))}
@@ -82,14 +82,14 @@ export default function DayColumn({
           />
         ))}
 
-        {/* Current time red line */}
+        {/* Current time indicator */}
         {showTimeLine && (
           <div
             className="absolute left-0 right-0 z-20 flex items-center"
             style={{ top: `${timeLineTop}px` }}
           >
-            <div className="h-2.5 w-2.5 rounded-full bg-red-500" />
-            <div className="h-0.5 flex-1 bg-red-500" />
+            <div className="h-2 w-2 rounded-full bg-orange-500 shadow-[0_0_6px_rgba(249,115,22,0.5)] animate-pulse" />
+            <div className="h-px flex-1 bg-orange-500" />
           </div>
         )}
       </div>

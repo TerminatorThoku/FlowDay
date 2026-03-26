@@ -16,23 +16,25 @@ import {
   Zap,
   Target,
   TrendingUp,
+  Flame,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const tabs = [
-  { label: "Today", icon: Home, path: "/" },
+  { label: "Dashboard", icon: Home, path: "/" },
   { label: "Calendar", icon: Calendar, path: "/calendar" },
   { label: "Tasks", icon: CheckSquare, path: "/tasks" },
-  { label: "Lifestyle", icon: Dumbbell, path: "/lifestyle" },
+  { label: "Focus", icon: Zap, path: "/focus" },
 ] as const;
 
 const moreItems = [
-  { label: "Focus", icon: Zap, path: "/focus" },
   { label: "Habits", icon: Target, path: "/habits" },
+  { label: "Lifestyle", icon: Dumbbell, path: "/lifestyle" },
+  { label: "Streaks", icon: Flame, path: "/streaks" },
   { label: "Stats", icon: TrendingUp, path: "/stats" },
-  { label: "Settings", icon: Settings, path: "/settings" },
   { label: "GPA", icon: GraduationCap, path: "/gpa" },
   { label: "Report", icon: BarChart3, path: "/report" },
+  { label: "Settings", icon: Settings, path: "/settings" },
 ] as const;
 
 export default function BottomNav() {
@@ -67,7 +69,7 @@ export default function BottomNav() {
     )?.path || (isMoreActive ? "__more__" : null);
 
   return (
-    <nav className="fixed bottom-4 left-4 right-4 z-50 md:hidden">
+    <nav className="fixed bottom-3 left-3 right-3 z-50 md:hidden">
       <div className="mx-auto max-w-lg rounded-2xl border border-white/[0.08] bg-zinc-900/80 backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
         <div className="flex h-14 items-center justify-around px-2">
           {tabs.map((tab) => {

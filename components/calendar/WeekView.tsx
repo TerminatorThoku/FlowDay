@@ -68,13 +68,13 @@ export default function WeekView({ blocks, weekStart }: WeekViewProps) {
   return (
     <div className="flex h-full flex-col">
       {/* Week navigation header */}
-      <div className="flex items-center justify-between border-b border-zinc-800 bg-zinc-950 px-4 py-3">
+      <div className="flex items-center justify-between border-b border-white/[0.06] bg-zinc-950 px-4 py-3">
         <Button variant="ghost" size="icon" onClick={handlePrevWeek}>
           <ChevronLeft className="h-5 w-5 text-zinc-400" />
         </Button>
 
         <div className="flex items-center gap-2">
-          <span className="text-sm font-medium text-zinc-200">{weekLabel}</span>
+          <span className="text-sm font-medium text-white/80">{weekLabel}</span>
           <Button
             variant="outline"
             size="sm"
@@ -93,14 +93,14 @@ export default function WeekView({ blocks, weekStart }: WeekViewProps) {
       {/* Calendar grid */}
       <div className="flex flex-1 overflow-hidden">
         {/* Time gutter */}
-        <div className="flex w-12 flex-shrink-0 flex-col border-r border-zinc-800/50">
+        <div className="flex w-12 flex-shrink-0 flex-col border-r border-white/[0.04]">
           {/* Spacer for day header */}
-          <div className="h-[52px] border-b border-zinc-800/50" />
+          <div className="h-[52px] border-b border-white/[0.04]" />
           <div className="relative" style={{ height: `${TOTAL_HOURS * HOUR_HEIGHT}px` }}>
             {Array.from({ length: TOTAL_HOURS }, (_, i) => (
               <div
                 key={i}
-                className="absolute right-2 -translate-y-1/2 text-[10px] text-zinc-600"
+                className="absolute right-2 -translate-y-1/2 text-[10px] text-white/25 font-mono"
                 style={{ top: `${i * HOUR_HEIGHT}px` }}
               >
                 {START_HOUR + i > 12

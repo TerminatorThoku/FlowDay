@@ -12,6 +12,10 @@ import {
   Moon,
   Timer,
   Plus,
+  Zap,
+  CheckCircle2,
+  Flame,
+  AlertCircle,
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -196,6 +200,56 @@ export default function TodayView({
           </StaggeredList>
         </AnimatedSection>
       )}
+
+      {/* Quick Stats Row */}
+      <AnimatedSection delay={0.12}>
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+          <div className="surface-1 rounded-xl p-4 border border-white/[0.06]">
+            <div className="flex items-center gap-2 mb-1">
+              <Zap className="h-3.5 w-3.5 text-purple-400" />
+              <span className="text-[11px] font-semibold uppercase tracking-[0.08em] text-white/32">Focus Today</span>
+            </div>
+            <p className="font-mono text-2xl font-bold text-white/90">
+              <CountUp target={1.5} suffix="h" />
+            </p>
+          </div>
+          <div className="surface-1 rounded-xl p-4 border border-white/[0.06]">
+            <div className="flex items-center gap-2 mb-1">
+              <CheckCircle2 className="h-3.5 w-3.5 text-green-400" />
+              <span className="text-[11px] font-semibold uppercase tracking-[0.08em] text-white/32">Tasks Done</span>
+            </div>
+            <p className="font-mono text-2xl font-bold text-white/90">
+              <CountUp target={completedBlocks} decimals={0} />
+              <span className="text-sm text-white/30 font-normal">/{totalBlocks}</span>
+            </p>
+          </div>
+          <div className="surface-1 rounded-xl p-4 border border-white/[0.06]">
+            <div className="flex items-center gap-2 mb-1">
+              <Flame className="h-3.5 w-3.5 text-orange-400" />
+              <span className="text-[11px] font-semibold uppercase tracking-[0.08em] text-white/32">Best Streak</span>
+            </div>
+            <p className="font-mono text-2xl font-bold text-white/90">
+              <CountUp target={streaks.length > 0 ? Math.max(...streaks.map(s => s.currentStreak)) : 0} decimals={0} suffix=" days" />
+            </p>
+          </div>
+          <div className="surface-1 rounded-xl p-4 border border-white/[0.06]">
+            <div className="flex items-center gap-2 mb-1">
+              <AlertCircle className="h-3.5 w-3.5 text-amber-400" />
+              <span className="text-[11px] font-semibold uppercase tracking-[0.08em] text-white/32">Next Deadline</span>
+            </div>
+            {deadlineTasks.length > 0 ? (
+              <>
+                <p className="font-mono text-lg font-bold text-white/90 truncate">{deadlineTasks[0].title.split(' ').slice(0, 2).join(' ')}</p>
+                <p className="text-[10px] text-white/32">
+                  in {Math.max(1, Math.ceil((new Date(deadlineTasks[0].due_date!).getTime() - Date.now()) / 86400000))} days
+                </p>
+              </>
+            ) : (
+              <p className="text-sm text-white/40">All clear</p>
+            )}
+          </div>
+        </div>
+      </AnimatedSection>
 
       {/* Up Next card */}
       {upNext ? (
