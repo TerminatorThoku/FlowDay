@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
+import { AnimateIn } from "@/components/shared/AnimateIn";
 
 const habits = [
   { name: "Gym", icon: "\uD83C\uDFCB\uFE0F", freq: "5x / week", duration: "1\u20131.5h", streak: 7, next: "Tomorrow, 7:00 AM", pct: 85, color: "#22c55e" },
@@ -46,6 +47,7 @@ export default function HabitsPage() {
   return (
     <div className="px-4 py-6 max-w-5xl mx-auto">
       {/* Header */}
+      <AnimateIn>
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-semibold tracking-tight text-white/92">Habits</h1>
@@ -56,7 +58,10 @@ export default function HabitsPage() {
         </button>
       </div>
 
+      </AnimateIn>
+
       {/* Active Habits */}
+      <AnimateIn delay={0.1}>
       <h2 className="text-[11px] uppercase tracking-wider text-white/30 mt-6 mb-3">Active Habits</h2>
       <div className="space-y-3">
         {habits.map((h) => (
@@ -92,7 +97,10 @@ export default function HabitsPage() {
         ))}
       </div>
 
+      </AnimateIn>
+
       {/* Heatmap */}
+      <AnimateIn delay={0.2}>
       <div className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.06] rounded-2xl p-5 mt-6">
         <h3 className="text-[11px] uppercase tracking-wider text-white/30 mb-3">Activity</h3>
 
@@ -129,6 +137,7 @@ export default function HabitsPage() {
           <span className="text-[10px] text-white/25">More</span>
         </div>
       </div>
+      </AnimateIn>
     </div>
   );
 }

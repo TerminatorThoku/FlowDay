@@ -12,19 +12,10 @@ import {
   Moon,
   Timer,
   Plus,
-  Zap,
-  CheckCircle2,
-  Flame,
-  AlertCircle,
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { AnimatedSection } from "@/components/shared/AnimatedSection";
-import {
-  StaggeredList,
-  StaggeredItem,
-} from "@/components/shared/StaggeredList";
-import { CountUp } from "@/components/shared/CountUp";
+import { AnimateIn } from "@/components/shared/AnimateIn";
 import ProgressRing from "./ProgressRing";
 import QuickActions from "./QuickActions";
 import StreakBar from "./StreakBar";
@@ -159,7 +150,7 @@ export default function TodayView({
   return (
     <div className="space-y-6 px-4 py-4">
       {/* Greeting */}
-      <AnimatedSection>
+      <AnimateIn>
         <div className="flex items-start justify-between">
           <div>
             <h1 className="text-3xl font-bold bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent">
@@ -178,14 +169,14 @@ export default function TodayView({
             />
           )}
         </div>
-      </AnimatedSection>
+      </AnimateIn>
 
       {/* Streak chips */}
       {streaks.length > 0 && (
-        <AnimatedSection delay={0.1}>
-          <StaggeredList className="flex flex-wrap gap-2">
+        <AnimateIn delay={0.1}>
+          <div className="flex flex-wrap gap-2">
             {streaks.map((s) => (
-              <StaggeredItem key={s.type}>
+              <div key={s.type}>
                 <div className="flex items-center gap-1.5 bg-white/[0.04] rounded-full px-3 py-1.5 text-xs">
                   <span>{STREAK_EMOJI[s.type] || "\u2B50"}</span>
                   <span className="font-mono font-bold text-white/90">
@@ -195,65 +186,51 @@ export default function TodayView({
                     {s.type}
                   </span>
                 </div>
-              </StaggeredItem>
+              </div>
             ))}
-          </StaggeredList>
-        </AnimatedSection>
+          </div>
+        </AnimateIn>
       )}
 
       {/* Quick Stats Row */}
-      <AnimatedSection delay={0.12}>
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-          <div className="surface-1 rounded-xl p-4 border border-white/[0.06]">
-            <div className="flex items-center gap-2 mb-1">
-              <Zap className="h-3.5 w-3.5 text-purple-400" />
-              <span className="text-[11px] font-semibold uppercase tracking-[0.08em] text-white/32">Focus Today</span>
-            </div>
-            <p className="font-mono text-2xl font-bold text-white/90">
-              <CountUp target={1.5} suffix="h" />
-            </p>
-          </div>
-          <div className="surface-1 rounded-xl p-4 border border-white/[0.06]">
-            <div className="flex items-center gap-2 mb-1">
-              <CheckCircle2 className="h-3.5 w-3.5 text-green-400" />
-              <span className="text-[11px] font-semibold uppercase tracking-[0.08em] text-white/32">Tasks Done</span>
-            </div>
-            <p className="font-mono text-2xl font-bold text-white/90">
-              <CountUp target={completedBlocks} decimals={0} />
-              <span className="text-sm text-white/30 font-normal">/{totalBlocks}</span>
-            </p>
-          </div>
-          <div className="surface-1 rounded-xl p-4 border border-white/[0.06]">
-            <div className="flex items-center gap-2 mb-1">
-              <Flame className="h-3.5 w-3.5 text-orange-400" />
-              <span className="text-[11px] font-semibold uppercase tracking-[0.08em] text-white/32">Best Streak</span>
-            </div>
-            <p className="font-mono text-2xl font-bold text-white/90">
-              <CountUp target={streaks.length > 0 ? Math.max(...streaks.map(s => s.currentStreak)) : 0} decimals={0} suffix=" days" />
-            </p>
-          </div>
-          <div className="surface-1 rounded-xl p-4 border border-white/[0.06]">
-            <div className="flex items-center gap-2 mb-1">
-              <AlertCircle className="h-3.5 w-3.5 text-amber-400" />
-              <span className="text-[11px] font-semibold uppercase tracking-[0.08em] text-white/32">Next Deadline</span>
-            </div>
-            {deadlineTasks.length > 0 ? (
-              <>
-                <p className="font-mono text-lg font-bold text-white/90 truncate">{deadlineTasks[0].title.split(' ').slice(0, 2).join(' ')}</p>
-                <p className="text-[10px] text-white/32">
-                  in {Math.max(1, Math.ceil((new Date(deadlineTasks[0].due_date!).getTime() - Date.now()) / 86400000))} days
-                </p>
-              </>
-            ) : (
-              <p className="text-sm text-white/40">All clear</p>
-            )}
-          </div>
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mt-4">
+        <div className="bg-white/[0.03] border border-white/[0.06] rounded-xl p-3">
+          <span className="text-base">{"\u26A1"}</span>
+          <p className="text-[10px] uppercase tracking-wider text-white/30 mt-1">Focus Today</p>
+          <p className="font-mono text-xl font-bold text-white">0h</p>
+          <p className="text-[11px] text-white/30">of 3h goal</p>
         </div>
-      </AnimatedSection>
+        <div className="bg-white/[0.03] border border-white/[0.06] rounded-xl p-3">
+          <span className="text-base">{"\u2705"}</span>
+          <p className="text-[10px] uppercase tracking-wider text-white/30 mt-1">Tasks Done</p>
+          <p className="font-mono text-xl font-bold text-white">{completedBlocks}/{totalBlocks}</p>
+          <p className="text-[11px] text-white/30">today</p>
+        </div>
+        <div className="bg-white/[0.03] border border-white/[0.06] rounded-xl p-3">
+          <span className="text-base">{"\uD83D\uDD25"}</span>
+          <p className="text-[10px] uppercase tracking-wider text-white/30 mt-1">Streak</p>
+          <p className="font-mono text-xl font-bold text-white">
+            {streaks.length > 0 ? Math.max(...streaks.map(s => s.currentStreak)) : 0}
+          </p>
+          <p className="text-[11px] text-white/30">days</p>
+        </div>
+        <div className="bg-white/[0.03] border border-white/[0.06] rounded-xl p-3">
+          <span className="text-base">{"\u23F0"}</span>
+          <p className="text-[10px] uppercase tracking-wider text-white/30 mt-1">Next Deadline</p>
+          <p className="font-mono text-xl font-bold text-white truncate">
+            {deadlineTasks.length > 0 ? deadlineTasks[0].title.split(' ').slice(0, 2).join(' ') : "Clear"}
+          </p>
+          <p className="text-[11px] text-white/30">
+            {deadlineTasks.length > 0
+              ? `due ${Math.max(1, Math.ceil((new Date(deadlineTasks[0].due_date!).getTime() - Date.now()) / 86400000)) <= 1 ? "tomorrow" : `in ${Math.ceil((new Date(deadlineTasks[0].due_date!).getTime() - Date.now()) / 86400000)} days`}`
+              : "all clear"}
+          </p>
+        </div>
+      </div>
 
       {/* Up Next card */}
       {upNext ? (
-        <AnimatedSection delay={0.15}>
+        <AnimateIn delay={0.15}>
           <Card className="relative overflow-hidden border-white/[0.08]">
             {/* Gradient top border */}
             <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-orange-500 via-orange-400 to-transparent" />
@@ -334,9 +311,9 @@ export default function TodayView({
               )}
             </CardContent>
           </Card>
-        </AnimatedSection>
+        </AnimateIn>
       ) : allDone ? (
-        <AnimatedSection delay={0.15}>
+        <AnimateIn delay={0.15}>
           <Card>
             <CardContent className="flex flex-col items-center gap-2 p-6">
               <Moon className="h-8 w-8 text-white/30" />
@@ -346,11 +323,11 @@ export default function TodayView({
               <p className="text-sm text-white/40">Rest up.</p>
             </CardContent>
           </Card>
-        </AnimatedSection>
+        </AnimateIn>
       ) : null}
 
       {/* Progress row */}
-      <AnimatedSection delay={0.2}>
+      <AnimateIn delay={0.2}>
         <div className="flex items-center gap-4">
           <ProgressRing completed={completedBlocks} total={totalBlocks} />
           <div className="flex-1">
@@ -367,10 +344,10 @@ export default function TodayView({
             <Plus className="h-4 w-4" />
           </Button>
         </div>
-      </AnimatedSection>
+      </AnimateIn>
 
       {/* Timeline */}
-      <AnimatedSection delay={0.25}>
+      <AnimateIn delay={0.25}>
         <div>
           <h2 className="mb-3 text-[11px] font-semibold uppercase tracking-[0.08em] text-white/32">
             Schedule
@@ -379,7 +356,7 @@ export default function TodayView({
             {/* Vertical timeline line */}
             <div className="absolute left-[18px] top-0 bottom-0 w-px bg-white/[0.08]" />
 
-            <StaggeredList className="space-y-1.5">
+            <div className="space-y-1.5">
               {sortedBlocks.map((block) => {
                 const colorInfo =
                   BLOCK_COLORS[block.type as BlockCategory] ||
@@ -392,7 +369,7 @@ export default function TodayView({
                 const hasSpotify = SPOTIFY_BLOCK_TYPES.has(block.type);
 
                 return (
-                  <StaggeredItem key={block.id}>
+                  <div key={block.id}>
                     <div className="flex items-start gap-3 group">
                       {/* Timeline dot */}
                       <div className="relative z-10 mt-3 flex-shrink-0">
@@ -464,22 +441,22 @@ export default function TodayView({
                         </div>
                       </div>
                     </div>
-                  </StaggeredItem>
+                  </div>
                 );
               })}
-            </StaggeredList>
+            </div>
           </div>
         </div>
-      </AnimatedSection>
+      </AnimateIn>
 
       {/* Upcoming Deadlines */}
-      <AnimatedSection delay={0.3}>
+      <AnimateIn delay={0.3}>
         <UpcomingDeadlines tasks={deadlineTasks} />
-      </AnimatedSection>
+      </AnimateIn>
 
-      <AnimatedSection delay={0.35}>
+      <AnimateIn delay={0.35}>
         <QuickActions />
-      </AnimatedSection>
+      </AnimateIn>
     </div>
   );
 }

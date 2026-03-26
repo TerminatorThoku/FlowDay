@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import { AnimateIn } from "@/components/shared/AnimateIn";
 
 const tabs = ["My Stats", "Weekly Report"];
 
@@ -39,10 +40,12 @@ export default function StatsPage() {
 
   return (
     <div className="px-4 py-6 max-w-5xl mx-auto">
+      <AnimateIn>
       <h1 className="text-2xl font-semibold tracking-tight text-white/92">
         Stats & Analytics
       </h1>
       <p className="text-sm text-white/40 mt-1">Your performance overview</p>
+      </AnimateIn>
 
       {/* Tab bar — underline style */}
       <div className="flex gap-6 mt-4 border-b border-white/[0.06]">

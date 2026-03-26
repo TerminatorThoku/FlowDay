@@ -3,6 +3,7 @@
 import { useMemo } from "react";
 import { Check } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { AnimateIn } from "@/components/shared/AnimateIn";
 
 const streaks = [
   { label: "Gym", emoji: "\uD83C\uDFCB\uFE0F", current: 7, best: 14, color: "#22c55e" },
@@ -30,12 +31,15 @@ export default function StreaksPage() {
 
   return (
     <div className="px-4 py-6 max-w-5xl mx-auto">
+      <AnimateIn>
       <h1 className="text-2xl font-semibold tracking-tight text-white/92">
         Streaks
       </h1>
       <p className="text-sm text-white/40 mt-1">Keep your momentum going</p>
+      </AnimateIn>
 
       {/* Overview Cards */}
+      <AnimateIn delay={0.1}>
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mt-6">
         {streaks.map((s) => {
           const pct = Math.min((s.current / s.best) * 100, 100);
@@ -77,7 +81,10 @@ export default function StreaksPage() {
         })}
       </div>
 
+      </AnimateIn>
+
       {/* Streak History — 14-day timeline */}
+      <AnimateIn delay={0.2}>
       <div className="mt-8">
         <h3 className="text-[11px] uppercase tracking-wider text-white/30 mb-4">
           Streak History
@@ -114,6 +121,7 @@ export default function StreaksPage() {
           </div>
         </div>
       </div>
+      </AnimateIn>
     </div>
   );
 }

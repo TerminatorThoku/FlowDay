@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import { AnimateIn } from "@/components/shared/AnimateIn";
 
 const weeks = ["Last week", "This week", "Next week"];
 
@@ -36,6 +37,7 @@ export default function FocusPage() {
   return (
     <div className="px-4 py-6 max-w-5xl mx-auto">
       {/* Header + week toggle */}
+      <AnimateIn>
       <div className="flex items-center justify-between flex-wrap gap-3">
         <div>
           <h1 className="text-2xl font-semibold tracking-tight text-white/92">
@@ -63,7 +65,10 @@ export default function FocusPage() {
         </div>
       </div>
 
+      </AnimateIn>
+
       {/* ─── Section 1: Stat Cards ─── */}
+      <AnimateIn delay={0.1}>
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mt-6">
         {/* Card 1 — Focus Time with SVG gauge */}
         <div className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.06] rounded-2xl p-5">
@@ -147,7 +152,10 @@ export default function FocusPage() {
         </div>
       </div>
 
+      </AnimateIn>
+
       {/* ─── Section 2: Charts Row ─── */}
+      <AnimateIn delay={0.2}>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 mt-4">
         {/* Chart 1 — Daily Focus Time bar chart */}
         <div className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.06] rounded-2xl p-5">
@@ -308,7 +316,10 @@ export default function FocusPage() {
         </div>
       </div>
 
+      </AnimateIn>
+
       {/* ─── Section 3: Category Breakdown ─── */}
+      <AnimateIn delay={0.3}>
       <div className="mt-4">
         <h3 className="text-[11px] uppercase tracking-wider text-white/30 mb-3">
           Breakdown by Category
@@ -340,6 +351,7 @@ export default function FocusPage() {
           ))}
         </div>
       </div>
+      </AnimateIn>
     </div>
   );
 }
