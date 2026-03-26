@@ -1,86 +1,119 @@
 "use client";
 
-import { useStreakStore } from "@/stores/streakStore";
-import { Card, CardContent } from "@/components/ui/card";
-import { AnimatedSection } from "@/components/shared/AnimatedSection";
-import { CountUp } from "@/components/shared/CountUp";
-import { StaggeredList, StaggeredItem } from "@/components/shared/StaggeredList";
-import { Flame, Trophy } from "lucide-react";
+import { useMemo } from "react";
+import { Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-const STREAK_ICONS: Record<string, string> = {
-  gym: "\uD83C\uDFCB\uFE0F",
-  study: "\uD83D\uDCDA",
-  coding: "\uD83D\uDCBB",
-  sleep: "\uD83D\uDE34",
-  swim: "\uD83C\uDFCA",
-};
+const streaks = [
+  { label: "Gym", emoji: "\uD83C\uDFCB\uFE0F", current: 7, best: 14, color: "#22c55e" },
+  { label: "Study", emoji: "\uD83D\uDCDA", current: 5, best: 21, color: "#a855f7" },
+  { label: "Sleep 7h+", emoji: "\uD83D\uDE34", current: 12, best: 30, color: "#6366f1" },
+  { label: "No Skip", emoji: "\uD83D\uDD25", current: 3, best: 10, color: "#f97316" },
+];
 
 export default function StreaksPage() {
-  const { streaks, markCompleted } = useStreakStore();
-  const today = new Date().toISOString().split("T")[0];
+  // 14-day timeline — stable across renders
+  const days = useMemo(
+    () =>
+      Array.from({ length: 14 }, (_, i) => {
+        const date = new Date(Date.now() - (13 - i) * 86400000);
+        return {
+          date,
+          dayLabel: date.toLocaleDateString("en", { weekday: "short" }).slice(0, 2),
+          dateLabel: date.getDate().toString(),
+          completed: Math.random() > 0.3,
+          isToday: i === 13,
+        };
+      }),
+    []
+  );
 
   return (
-    <div className="space-y-6 px-4 py-6 max-w-3xl mx-auto">
-      <AnimatedSection>
-        <h1 className="text-2xl font-semibold tracking-tight text-white/92">
-          Streaks
-        </h1>
-        <p className="text-sm text-white/40 mt-1">
-          Keep your momentum going
-        </p>
-      </AnimatedSection>
+    <div className="px-4 py-6 max-w-5xl mx-auto">
+      <h1 className="text-2xl font-semibold tracking-tight text-white/92">
+        Streaks
+      </h1>
+      <p className="text-sm text-white/40 mt-1">Keep your momentum going</p>
 
-      <StaggeredList className="space-y-3">
-        {streaks.map((streak) => (
-          <StaggeredItem key={streak.type}>
-            <Card
-              className={cn(
-                "cursor-pointer",
-                streak.todayCompleted && "border-green-500/20"
-              )}
-              onClick={() => !streak.todayCompleted && markCompleted(streak.type, today)}
+      {/* Overview Cards */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mt-6">
+        {streaks.map((s) => {
+          const pct = Math.min((s.current / s.best) * 100, 100);
+          return (
+            <div
+              key={s.label}
+              className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.06] rounded-2xl p-5"
             >
-              <CardContent className="p-4">
-                <div className="flex items-center gap-4">
-                  <div className="text-2xl">
-                    {STREAK_ICONS[streak.type] || "\u2B50"}
-                  </div>
-                  <div className="flex-1">
-                    <p className="text-sm font-medium text-white/90 capitalize">
-                      {streak.type}
-                    </p>
-                    <div className="flex items-center gap-3 mt-1">
-                      <div className="flex items-center gap-1">
-                        <Flame className="h-3.5 w-3.5 text-orange-500" />
-                        <span className="text-lg font-bold font-mono text-white/90">
-                          <CountUp target={streak.currentStreak} decimals={0} />
-                        </span>
-                        <span className="text-xs text-white/30">current</span>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <Trophy className="h-3 w-3 text-amber-500" />
-                        <span className="text-xs text-white/40">
-                          Best: {streak.bestStreak}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  {streak.todayCompleted ? (
-                    <span className="text-xs text-green-400 bg-green-500/10 px-2 py-1 rounded-full border border-green-500/20">
-                      Done today
-                    </span>
-                  ) : (
-                    <span className="text-xs text-white/30 bg-white/[0.04] px-2 py-1 rounded-full">
-                      Tap to complete
-                    </span>
+              {/* Emoji */}
+              <div className="w-9 h-9 rounded-lg bg-white/[0.05] flex items-center justify-center text-lg mb-3">
+                {s.emoji}
+              </div>
+
+              {/* Current streak */}
+              <div className="flex items-baseline gap-1.5">
+                <span className="font-mono text-3xl font-bold text-white">
+                  {s.current}
+                </span>
+                <span className="text-xs text-white/40">days</span>
+              </div>
+
+              {/* Best */}
+              <p className="text-xs text-white/30 mt-1">Best: {s.best}d</p>
+
+              {/* Progress bar */}
+              <div className="h-[3px] bg-white/[0.06] rounded-full mt-3 overflow-hidden">
+                <div
+                  className="h-full rounded-full"
+                  style={{ width: `${pct}%`, backgroundColor: s.color }}
+                />
+              </div>
+
+              {/* Label */}
+              <p className="text-[11px] uppercase tracking-wider text-white/30 mt-3">
+                {s.label}
+              </p>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Streak History — 14-day timeline */}
+      <div className="mt-8">
+        <h3 className="text-[11px] uppercase tracking-wider text-white/30 mb-4">
+          Streak History
+        </h3>
+
+        <div className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.06] rounded-2xl p-5">
+          <div className="flex items-center gap-2 overflow-x-auto pb-1">
+            {days.map((d, i) => (
+              <div key={i} className="flex flex-col items-center gap-1.5 flex-shrink-0">
+                {/* Circle */}
+                <div
+                  className={cn(
+                    "w-8 h-8 rounded-full flex items-center justify-center transition-all",
+                    d.completed
+                      ? "bg-green-500/20 border-2 border-green-500"
+                      : "bg-white/[0.04] border border-white/[0.08]",
+                    d.isToday && "ring-2 ring-orange-500 ring-offset-1 ring-offset-[#09090b]"
+                  )}
+                >
+                  {d.completed && (
+                    <Check className="h-3.5 w-3.5 text-green-400" />
                   )}
                 </div>
-              </CardContent>
-            </Card>
-          </StaggeredItem>
-        ))}
-      </StaggeredList>
+
+                {/* Day label */}
+                <span className="text-[9px] text-white/30 font-mono">
+                  {d.dayLabel}
+                </span>
+                <span className="text-[9px] text-white/20 font-mono -mt-1">
+                  {d.dateLabel}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
