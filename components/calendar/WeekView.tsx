@@ -90,6 +90,24 @@ export default function WeekView({ blocks, weekStart }: WeekViewProps) {
         </Button>
       </div>
 
+      {/* Color Legend */}
+      <div className="flex items-center gap-3 px-4 py-1.5 border-b border-white/[0.04] overflow-x-auto whitespace-nowrap">
+        {[
+          { color: "bg-blue-600", label: "Classes" },
+          { color: "bg-green-500", label: "Gym" },
+          { color: "bg-cyan-500", label: "Swimming" },
+          { color: "bg-purple-500", label: "Study" },
+          { color: "bg-orange-500", label: "Projects" },
+          { color: "bg-zinc-500", label: "Free" },
+          { color: "bg-indigo-500", label: "Sleep" },
+        ].map(item => (
+          <div key={item.label} className="flex items-center gap-1.5">
+            <div className={`w-2 h-2 rounded-full ${item.color}`}/>
+            <span className="text-[10px] text-white/30">{item.label}</span>
+          </div>
+        ))}
+      </div>
+
       {/* Calendar grid */}
       <div className="flex flex-1 overflow-hidden">
         {/* Time gutter */}

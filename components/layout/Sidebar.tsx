@@ -1,5 +1,6 @@
 "use client";
 
+import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
@@ -16,6 +17,7 @@ import {
   GraduationCap,
   BarChart3,
   Settings,
+  ChevronDown,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -59,6 +61,25 @@ const navSections = [
 export default function Sidebar({ userName }: SidebarProps) {
   const pathname = usePathname();
   const initial = userName?.charAt(0)?.toUpperCase() || "U";
+  const [openSections, setOpenSections] = useState<Record<string, boolean>>({
+    TODAY: true,
+    PLANNING: true,
+    TRACKING: false,
+    ANALYTICS: false,
+  });
+
+  const toggleSection = (label: string) => {
+    setOpenSections(prev => ({ ...prev, [label]: !prev[label] }));
+  };
+
+  // Auto-open section if current path is inside it
+  React.useEffect(() => {
+    navSections.forEach((section) => {
+      if (section.items.some(item => item.path === "/" ? pathname === "/" : pathname.startsWith(item.path))) {
+        setOpenSections(prev => ({ ...prev, [section.label]: true }));
+      }
+    });
+  }, [pathname]);
 
   return (
     <aside className="hidden md:flex md:flex-col md:w-[220px] fixed left-0 top-0 h-screen bg-zinc-950 border-r border-white/[0.06] z-50">
@@ -73,12 +94,17 @@ export default function Sidebar({ userName }: SidebarProps) {
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 overflow-y-auto py-4 px-3 space-y-6">
+      <nav className="flex-1 overflow-y-auto py-4 px-3 space-y-4">
         {navSections.map((section) => (
           <div key={section.label}>
-            <div className="px-2 mb-2 text-[11px] font-semibold uppercase tracking-[0.08em] text-white/25">
-              {section.label}
-            </div>
+            <button
+              onClick={() => toggleSection(section.label)}
+              className="flex items-center justify-between w-full px-2 mb-1.5 text-[11px] font-semibold uppercase tracking-[0.08em] text-white/25 hover:text-white/50 transition-colors"
+            >
+              <span>{section.label}</span>
+              <ChevronDown className={cn("w-3 h-3 transition-transform duration-200", openSections[section.label] ? "rotate-0" : "-rotate-90")} />
+            </button>
+            {openSections[section.label] && (
             <div className="space-y-0.5">
               {section.items.map((item) => {
                 const isActive =
@@ -117,6 +143,7 @@ export default function Sidebar({ userName }: SidebarProps) {
                 );
               })}
             </div>
+            )}
           </div>
         ))}
       </nav>
