@@ -80,7 +80,7 @@ export default function DeadlineBar({ dueDate }: DeadlineBarProps) {
           {info.label}
         </span>
       </div>
-      <div className="h-1 w-full overflow-hidden rounded-full bg-zinc-800">
+      <div className="h-[3px] w-full overflow-hidden rounded-full bg-white/[0.06]">
         <div
           className={cn(
             "h-full rounded-full transition-all",

@@ -85,11 +85,11 @@ export default function DayColumn({
         {/* Current time indicator */}
         {showTimeLine && (
           <div
-            className="absolute left-0 right-0 z-20 flex items-center"
+            className="absolute left-0 right-0 z-10 flex items-center"
             style={{ top: `${timeLineTop}px` }}
           >
-            <div className="h-2 w-2 rounded-full bg-orange-500 shadow-[0_0_6px_rgba(249,115,22,0.5)] animate-pulse" />
-            <div className="h-px flex-1 bg-orange-500" />
+            <div className="w-2 h-2 rounded-full bg-red-500 -ml-1 animate-pulse" />
+            <div className="h-px flex-1 bg-red-500" />
           </div>
         )}
       </div>

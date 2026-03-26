@@ -32,7 +32,7 @@ export default function UpcomingDeadlines({ tasks }: UpcomingDeadlinesProps) {
   if (deadlineTasks.length === 0) {
     return (
       <div>
-        <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-zinc-500">
+        <h2 className="mb-3 text-[11px] font-semibold uppercase tracking-wider text-white/30">
           Upcoming Deadlines
         </h2>
         <Card className="border-zinc-800 bg-zinc-900/50">
@@ -47,7 +47,7 @@ export default function UpcomingDeadlines({ tasks }: UpcomingDeadlinesProps) {
 
   return (
     <div>
-      <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-zinc-500">
+      <h2 className="mb-3 text-[11px] font-semibold uppercase tracking-wider text-white/30">
         Upcoming Deadlines
       </h2>
       <div className="space-y-2">

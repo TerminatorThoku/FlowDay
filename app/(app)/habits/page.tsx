@@ -46,12 +46,12 @@ export default function HabitsPage() {
       {/* Heatmap */}
       <div className="mt-8">
         <h3 className="text-[11px] uppercase tracking-wider text-white/30 mb-3">Activity</h3>
-        <div className="bg-white/[0.03] border border-white/[0.06] rounded-2xl p-5">
-          <div className="grid gap-[3px]" style={{gridTemplateColumns: 'repeat(12, 1fr)'}}>
+        <div className="bg-white/[0.03] border border-white/[0.06] rounded-2xl p-5 overflow-x-auto">
+          <div className="grid gap-[3px]" style={{gridTemplateColumns: 'repeat(12, minmax(12px, 1fr))'}}>
             {Array.from({length: 84}, (_, i) => {
               const v = [0,0,1,2,3,1,0,2,1,3,0,1,2,0,1,3,2,1,0,0,1,2,3,1,2,0,1,3,2,1,0,2,1,0,3,2,1,1,0,2,3,1,0,1,2,3,0,1,2,1,3,0,2,1,0,1,3,2,1,0,2,1,3,0,1,2,0,1,3,2,1,0,2,1,3,0,1,2,1,0,3,2,1,0][i];
               const colors = ["bg-white/[0.04]","bg-green-500/20","bg-green-500/40","bg-green-500/60"];
-              return <div key={i} className={`aspect-square rounded-sm ${colors[Math.min(v,3)]}`}/>;
+              return <div key={i} className={`w-3 h-3 rounded-sm ${colors[Math.min(v,3)]}`}/>;
             })}
           </div>
           <div className="flex items-center justify-end gap-1 mt-3 text-[9px] text-white/30">

@@ -117,7 +117,7 @@ export default function TimeBlockCard({
         onPointerLeave={handlePointerLeave}
         onContextMenu={(e) => e.preventDefault()}
         className={cn(
-          "relative h-full w-full overflow-hidden rounded-md px-2 py-1 text-left transition-all",
+          "relative h-full w-full overflow-hidden rounded-xl px-2 py-1 text-left transition-all duration-200 cursor-pointer hover:brightness-110 hover:shadow-lg",
           isPast && !isDragMode ? "opacity-50" : "opacity-100",
           isDragMode &&
             "scale-[1.02] shadow-lg shadow-black/40 ring-2 ring-orange-500/50"
