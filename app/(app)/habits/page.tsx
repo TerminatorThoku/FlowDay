@@ -1,17 +1,16 @@
 "use client";
 
 import { useMemo } from "react";
-import { cn } from "@/lib/utils";
 
-const mockHabits = [
-  { name: "Gym", icon: "\uD83C\uDFCB\uFE0F", frequency: "5x/week", duration: "1-1.5h", streak: 7, nextTime: "Tomorrow, 7:00 AM", completionRate: 85, color: "#22c55e" },
-  { name: "Swimming", icon: "\uD83C\uDFCA", frequency: "2x/week", duration: "1h", streak: 3, nextTime: "Saturday, 11:00 AM", completionRate: 70, color: "#06b6d4" },
-  { name: "Study Session", icon: "\uD83D\uDCDA", frequency: "Daily", duration: "1.5-2h", streak: 5, nextTime: "Today, 2:30 PM", completionRate: 60, color: "#a855f7" },
-  { name: "Sleep 7h+", icon: "\uD83D\uDE34", frequency: "Daily", duration: "7-8h", streak: 12, nextTime: "Tonight", completionRate: 90, color: "#6366f1" },
+const habits = [
+  { name: "Gym", icon: "\uD83C\uDFCB\uFE0F", freq: "5x / week", duration: "1\u20131.5h", streak: 7, next: "Tomorrow, 7:00 AM", pct: 85, color: "#22c55e" },
+  { name: "Swimming", icon: "\uD83C\uDFCA", freq: "2x / week", duration: "1h", streak: 3, next: "Saturday, 11:00 AM", pct: 70, color: "#06b6d4" },
+  { name: "Study Session", icon: "\uD83D\uDCDA", freq: "Daily", duration: "1.5\u20132h", streak: 5, next: "Today, 2:30 PM", pct: 60, color: "#a855f7" },
+  { name: "Sleep 7h+", icon: "\uD83D\uDE34", freq: "Daily", duration: "7\u20138h", streak: 12, next: "Tonight", pct: 90, color: "#6366f1" },
 ];
 
-function MiniRing({ pct, color }: { pct: number; color: string }) {
-  const r = 15;
+function ProgressRing({ pct, color }: { pct: number; color: string }) {
+  const r = 14;
   const circ = 2 * Math.PI * r;
   const offset = circ * (1 - pct / 100);
   return (
@@ -29,48 +28,20 @@ function MiniRing({ pct, color }: { pct: number; color: string }) {
   );
 }
 
-function getHeatColor(count: number) {
-  if (count === 0) return "bg-white/[0.04]";
-  if (count === 1) return "bg-green-500/25";
-  if (count === 2) return "bg-green-500/50";
-  return "bg-green-500/75";
-}
-
-// Generate 12 weeks x 7 days of random data
-function generateGrid() {
-  const now = new Date();
-  const grid: { date: string; count: number }[][] = [];
-  for (let w = 11; w >= 0; w--) {
-    const week: { date: string; count: number }[] = [];
-    for (let d = 0; d < 7; d++) {
-      const dt = new Date(now);
-      dt.setDate(now.getDate() - w * 7 - (6 - d));
-      week.push({
-        date: dt.toISOString().split("T")[0],
-        count: Math.floor(Math.random() * 5),
-      });
-    }
-    grid.push(week);
-  }
-  return grid;
+function heatColor(v: number) {
+  if (v === 0) return "bg-white/[0.04]";
+  if (v === 1) return "bg-green-500/20";
+  if (v === 2) return "bg-green-500/40";
+  if (v === 3) return "bg-green-500/60";
+  return "bg-green-500/80";
 }
 
 export default function HabitsPage() {
-  const heatmap = useMemo(() => generateGrid(), []);
-
-  // Compute month labels from the grid
-  const monthLabels = useMemo(() => {
-    const labels: { label: string; idx: number }[] = [];
-    let lastMonth = -1;
-    heatmap.forEach((week, i) => {
-      const m = new Date(week[0].date).getMonth();
-      if (m !== lastMonth) {
-        labels.push({ label: new Date(week[0].date).toLocaleString("en", { month: "short" }), idx: i });
-        lastMonth = m;
-      }
-    });
-    return labels;
-  }, [heatmap]);
+  // 84 random values (12 weeks x 7 days) — stable across renders
+  const heatmapData = useMemo(
+    () => Array.from({ length: 84 }, () => Math.floor(Math.random() * 5)),
+    []
+  );
 
   return (
     <div className="px-4 py-6 max-w-5xl mx-auto">
@@ -87,15 +58,15 @@ export default function HabitsPage() {
 
       {/* Active Habits */}
       <h2 className="text-[11px] uppercase tracking-wider text-white/30 mt-6 mb-3">Active Habits</h2>
-      <div className="space-y-2">
-        {mockHabits.map((h) => (
+      <div className="space-y-3">
+        {habits.map((h) => (
           <div
             key={h.name}
             className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.06] rounded-2xl p-4 hover:border-white/[0.12] hover:scale-[1.005] transition-all duration-300 cursor-pointer"
           >
             <div className="flex items-center gap-4">
-              {/* Icon */}
-              <div className="w-10 h-10 rounded-xl bg-white/[0.05] flex items-center justify-center text-lg flex-shrink-0">
+              {/* Icon box */}
+              <div className="w-11 h-11 rounded-xl bg-white/[0.05] flex items-center justify-center text-xl flex-shrink-0">
                 {h.icon}
               </div>
 
@@ -103,19 +74,19 @@ export default function HabitsPage() {
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-semibold text-white/90">{h.name}</p>
                 <p className="text-xs text-white/40 mt-0.5">
-                  {h.frequency} &middot; {h.duration}
+                  {h.freq} &middot; {h.duration}
                 </p>
-                <p className="text-[10px] text-white/25 mt-0.5">Next: {h.nextTime}</p>
+                <p className="text-xs text-white/30 mt-0.5">Next: {h.next}</p>
               </div>
 
               {/* Streak */}
-              <div className="flex items-center gap-1.5 flex-shrink-0">
+              <div className="flex items-center gap-1 flex-shrink-0">
                 <span className="text-sm">{"\uD83D\uDD25"}</span>
                 <span className="text-sm font-mono font-bold text-white/80">{h.streak}</span>
               </div>
 
-              {/* Mini ring */}
-              <MiniRing pct={h.completionRate} color={h.color} />
+              {/* Progress ring */}
+              <ProgressRing pct={h.pct} color={h.color} />
             </div>
           </div>
         ))}
@@ -123,53 +94,38 @@ export default function HabitsPage() {
 
       {/* Heatmap */}
       <div className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.06] rounded-2xl p-5 mt-6">
-        <h3 className="text-[11px] uppercase tracking-wider text-white/30 mb-4">Activity</h3>
+        <h3 className="text-[11px] uppercase tracking-wider text-white/30 mb-3">Activity</h3>
 
-        {/* Month labels row */}
-        <div className="flex ml-6 mb-1">
-          {monthLabels.map((m, i) => (
-            <span
-              key={`${m.label}-${i}`}
-              className="text-[10px] text-white/25"
-              style={{ position: "absolute", marginLeft: `${m.idx * 15}px` }}
-            >
-              {m.label}
-            </span>
-          ))}
-        </div>
-        <div className="h-4" />
-
-        <div className="flex gap-[3px]">
+        <div className="flex gap-1">
           {/* Day labels */}
-          <div className="flex flex-col gap-[3px] mr-1">
+          <div className="flex flex-col gap-1 mr-1 pt-0">
             {["", "M", "", "W", "", "F", ""].map((label, i) => (
-              <div key={i} className="h-3 w-4 text-[9px] text-white/20 flex items-center justify-end pr-0.5">
+              <div key={i} className="w-3 h-3 text-[9px] text-white/20 flex items-center justify-end">
                 {label}
               </div>
             ))}
           </div>
 
-          {/* Grid columns (weeks) */}
-          {heatmap.map((week, wi) => (
-            <div key={wi} className="flex flex-col gap-[3px]">
-              {week.map((cell, di) => (
-                <div
-                  key={di}
-                  className={cn("w-3 h-3 rounded-sm", getHeatColor(cell.count))}
-                  title={`${cell.count} habits completed on ${cell.date}`}
-                />
-              ))}
-            </div>
-          ))}
+          {/* 12-column grid */}
+          <div className="grid grid-cols-12 gap-1 flex-1">
+            {heatmapData.map((v, i) => (
+              <div
+                key={i}
+                className={`w-3 h-3 rounded-sm ${heatColor(v)}`}
+                title={`${v} habits completed`}
+              />
+            ))}
+          </div>
         </div>
 
         {/* Legend */}
         <div className="flex items-center gap-1.5 mt-3 justify-end">
           <span className="text-[10px] text-white/25">Less</span>
           <div className="w-3 h-3 rounded-sm bg-white/[0.04]" />
-          <div className="w-3 h-3 rounded-sm bg-green-500/25" />
-          <div className="w-3 h-3 rounded-sm bg-green-500/50" />
-          <div className="w-3 h-3 rounded-sm bg-green-500/75" />
+          <div className="w-3 h-3 rounded-sm bg-green-500/20" />
+          <div className="w-3 h-3 rounded-sm bg-green-500/40" />
+          <div className="w-3 h-3 rounded-sm bg-green-500/60" />
+          <div className="w-3 h-3 rounded-sm bg-green-500/80" />
           <span className="text-[10px] text-white/25">More</span>
         </div>
       </div>
