@@ -15,9 +15,7 @@ export default function AppHeader({ userName }: AppHeaderProps) {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 10);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -26,18 +24,16 @@ export default function AppHeader({ userName }: AppHeaderProps) {
     <header
       className={`sticky top-0 z-40 flex h-14 items-center justify-between px-4 md:hidden transition-all duration-300 ${
         scrolled
-          ? "bg-zinc-950/80 backdrop-blur-xl border-b border-white/[0.06]"
+          ? "bg-[#111111]/95 border-b border-[#2a2a2a]"
           : "bg-transparent border-b border-transparent"
       }`}
     >
-      <span className="text-base font-semibold text-white tracking-tight">
+      <span className="font-serif text-base font-bold text-[#e8e4dc] tracking-tight">
         FlowDay
       </span>
-
-      <span className="text-xs text-white/30 font-mono">{dateStr}</span>
-
-      <Avatar className="h-8 w-8 ring-2 ring-white/[0.08]">
-        <AvatarFallback className="bg-orange-500/20 text-sm font-semibold text-orange-500">
+      <span className="text-xs text-[#6b6560] font-mono">{dateStr}</span>
+      <Avatar className="h-8 w-8 ring-1 ring-[#2a2a2a]">
+        <AvatarFallback className="bg-[#c8a44e]/20 text-sm font-semibold text-[#c8a44e]">
           {initial}
         </AvatarFallback>
       </Avatar>

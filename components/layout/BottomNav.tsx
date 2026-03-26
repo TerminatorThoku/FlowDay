@@ -70,7 +70,7 @@ export default function BottomNav() {
 
   return (
     <nav className="fixed bottom-3 left-3 right-3 z-50 md:hidden">
-      <div className="mx-auto max-w-lg rounded-2xl border border-white/[0.08] bg-zinc-900/80 backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
+      <div className="mx-auto max-w-lg rounded-xl border border-[#2a2a2a] bg-[#1a1a1a]">
         <div className="flex h-14 items-center justify-around px-2">
           {tabs.map((tab) => {
             const isActive =
@@ -84,7 +84,7 @@ export default function BottomNav() {
                 href={tab.path}
                 className={cn(
                   "relative flex flex-1 flex-col items-center gap-0.5 py-2 transition-colors",
-                  isActive ? "text-orange-500" : "text-white/30"
+                  isActive ? "text-[#c8a44e]" : "text-[#6b6560]"
                 )}
               >
                 <tab.icon className="h-5 w-5" strokeWidth={1.5} />
@@ -101,7 +101,7 @@ export default function BottomNav() {
                       </motion.span>
                       <motion.div
                         layoutId="activeNavDot"
-                        className="absolute -bottom-1 h-1 w-1 rounded-full bg-orange-500 shadow-[0_0_8px_rgba(249,115,22,0.5)]"
+                        className="absolute -bottom-1 h-1 w-1 rounded-full bg-[#c8a44e] shadow-[0_0_6px_rgba(200,164,78,0.4)]"
                         transition={{
                           type: "spring",
                           stiffness: 350,
@@ -125,8 +125,8 @@ export default function BottomNav() {
               className={cn(
                 "relative flex flex-col items-center gap-0.5 py-2 transition-colors",
                 isMoreActive || moreOpen
-                  ? "text-orange-500"
-                  : "text-white/30"
+                  ? "text-[#c8a44e]"
+                  : "text-[#6b6560]"
               )}
             >
               <MoreHorizontal className="h-5 w-5" strokeWidth={1.5} />
@@ -144,7 +144,7 @@ export default function BottomNav() {
                     {isMoreActive && (
                       <motion.div
                         layoutId="activeNavDot"
-                        className="absolute -bottom-1 h-1 w-1 rounded-full bg-orange-500 shadow-[0_0_8px_rgba(249,115,22,0.5)]"
+                        className="absolute -bottom-1 h-1 w-1 rounded-full bg-[#c8a44e] shadow-[0_0_6px_rgba(200,164,78,0.4)]"
                         transition={{
                           type: "spring",
                           stiffness: 350,
@@ -164,7 +164,7 @@ export default function BottomNav() {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: 8, scale: 0.95 }}
                   transition={{ duration: 0.15 }}
-                  className="absolute bottom-14 right-0 min-w-[180px] rounded-xl border border-white/[0.08] bg-zinc-900/95 backdrop-blur-2xl py-1.5 shadow-[0_16px_48px_rgba(0,0,0,0.5)]"
+                  className="absolute bottom-14 right-0 min-w-[180px] rounded-xl border border-[#2a2a2a] bg-[#1a1a1a] py-1.5 shadow-lg"
                 >
                   {moreItems.map((item) => {
                     const isActive = pathname.startsWith(item.path);
@@ -175,8 +175,8 @@ export default function BottomNav() {
                         className={cn(
                           "flex items-center gap-3 px-4 py-2.5 text-sm transition-colors",
                           isActive
-                            ? "bg-white/[0.06] text-orange-500"
-                            : "text-white/60 hover:text-white/90 hover:bg-white/[0.04]"
+                            ? "bg-[#1a1a1a] text-[#c8a44e]"
+                            : "text-[#a8a29e] hover:text-[#e8e4dc] hover:bg-[#222222]"
                         )}
                       >
                         <item.icon className="h-4 w-4" strokeWidth={1.5} />

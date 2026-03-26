@@ -52,7 +52,7 @@ export default function AppLayout({
   }
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-screen bg-[#111111]">
       {/* Desktop sidebar */}
       <Sidebar userName={userName} />
 

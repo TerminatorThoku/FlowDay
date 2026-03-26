@@ -8,10 +8,10 @@ const tabs = ["My Stats", "Weekly Report"];
 
 // Same donut as Focus page
 const donutLegend = [
-  { color: "#a855f7", label: "Focus", hours: "2.5h" },
-  { color: "#6366f1", label: "Classes", hours: "10h" },
-  { color: "#22c55e", label: "Study", hours: "6h" },
-  { color: "#f97316", label: "Gym/Swim", hours: "5h" },
+  { color: "#8b7ab8", label: "Focus", hours: "2.5h" },
+  { color: "#6b8aad", label: "Classes", hours: "10h" },
+  { color: "#5b9a6f", label: "Study", hours: "6h" },
+  { color: "#c8944e", label: "Gym/Swim", hours: "5h" },
   { color: "rgba(255,255,255,0.15)", label: "Free", hours: "25.5h" },
 ];
 
@@ -23,10 +23,10 @@ const weeks = [
 ];
 
 const segColors = {
-  classes: "#6366f1",
-  study: "#22c55e",
-  focus: "#a855f7",
-  gym: "#f97316",
+  classes: "#6b8aad",
+  study: "#5b9a6f",
+  focus: "#8b7ab8",
+  gym: "#c8944e",
   free: "rgba(255,255,255,0.08)",
 };
 
@@ -41,14 +41,14 @@ export default function StatsPage() {
   return (
     <div className="px-4 py-6 max-w-5xl mx-auto">
       <AnimateIn>
-      <h1 className="text-2xl font-semibold tracking-tight text-white/92">
+      <h1 className="text-2xl font-semibold tracking-tight text-[#e8e4dc]">
         Stats & Analytics
       </h1>
-      <p className="text-sm text-white/40 mt-1">Your performance overview</p>
+      <p className="text-sm text-[#a8a29e] mt-1">Your performance overview</p>
       </AnimateIn>
 
       {/* Tab bar — underline style */}
-      <div className="flex gap-6 mt-4 border-b border-white/[0.06]">
+      <div className="flex gap-6 mt-4 border-b border-[#2a2a2a]">
         {tabs.map((tab, i) => (
           <button
             key={tab}
@@ -56,8 +56,8 @@ export default function StatsPage() {
             className={cn(
               "pb-2.5 text-sm transition-all relative",
               activeTab === i
-                ? "text-white border-b-2 border-orange-500"
-                : "text-white/40 hover:text-white/60"
+                ? "text-[#e8e4dc] border-b-2 border-[#c8a44e]"
+                : "text-[#a8a29e] hover:text-[#a8a29e]"
             )}
           >
             {tab}
@@ -70,8 +70,8 @@ export default function StatsPage() {
           {/* Row 1 — donut + weekly trend */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 mt-6">
             {/* Card 1: Time Breakdown — same donut as Focus page */}
-            <div className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.06] rounded-2xl p-5">
-              <h3 className="text-sm font-semibold text-white/90 mb-4">
+            <div className="bg-[#1a1a1a] border border-[#2a2a2a] rounded-xl p-5">
+              <h3 className="text-sm font-semibold text-[#e8e4dc] mb-4">
                 Time Breakdown
               </h3>
               <div className="flex items-center gap-6">
@@ -81,19 +81,19 @@ export default function StatsPage() {
                 >
                   <circle cx="60" cy="60" r="45" fill="none" stroke="rgba(255,255,255,0.04)" strokeWidth="12" />
                   {/* Focus 2.5h */}
-                  <circle cx="60" cy="60" r="45" fill="none" stroke="#a855f7" strokeWidth="12"
+                  <circle cx="60" cy="60" r="45" fill="none" stroke="#8b7ab8" strokeWidth="12"
                     strokeDasharray="14.4 268.6" strokeDashoffset="0"
                     transform="rotate(-90 60 60)" strokeLinecap="round" />
                   {/* Classes 10h */}
-                  <circle cx="60" cy="60" r="45" fill="none" stroke="#6366f1" strokeWidth="12"
+                  <circle cx="60" cy="60" r="45" fill="none" stroke="#6b8aad" strokeWidth="12"
                     strokeDasharray="57.7 225.3" strokeDashoffset="-14.4"
                     transform="rotate(-90 60 60)" />
                   {/* Study 6h */}
-                  <circle cx="60" cy="60" r="45" fill="none" stroke="#22c55e" strokeWidth="12"
+                  <circle cx="60" cy="60" r="45" fill="none" stroke="#5b9a6f" strokeWidth="12"
                     strokeDasharray="34.5 248.5" strokeDashoffset="-72.1"
                     transform="rotate(-90 60 60)" />
                   {/* Gym 5h */}
-                  <circle cx="60" cy="60" r="45" fill="none" stroke="#f97316" strokeWidth="12"
+                  <circle cx="60" cy="60" r="45" fill="none" stroke="#c8944e" strokeWidth="12"
                     strokeDasharray="28.9 254.1" strokeDashoffset="-106.6"
                     transform="rotate(-90 60 60)" />
                   {/* Free 25.5h */}
@@ -108,8 +108,8 @@ export default function StatsPage() {
                   {donutLegend.map((item) => (
                     <div key={item.label} className="flex items-center gap-2">
                       <span className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ background: item.color }} />
-                      <span className="text-white/50 w-16">{item.label}</span>
-                      <span className="text-white/80 font-mono">{item.hours}</span>
+                      <span className="text-[#a8a29e] w-16">{item.label}</span>
+                      <span className="text-[#e8e4dc] font-mono">{item.hours}</span>
                     </div>
                   ))}
                 </div>
@@ -117,8 +117,8 @@ export default function StatsPage() {
             </div>
 
             {/* Card 2: Weekly Trend — stacked bars */}
-            <div className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.06] rounded-2xl p-5">
-              <h3 className="text-sm font-semibold text-white/90 mb-4">
+            <div className="bg-[#1a1a1a] border border-[#2a2a2a] rounded-xl p-5">
+              <h3 className="text-sm font-semibold text-[#e8e4dc] mb-4">
                 Weekly Trend
               </h3>
               <div className="flex items-end justify-between gap-3 h-[160px]">
@@ -143,7 +143,7 @@ export default function StatsPage() {
                           />
                         ))}
                       </div>
-                      <span className="text-[10px] text-white/30 font-mono">{w.label}</span>
+                      <span className="text-[10px] text-[#6b6560] font-mono">{w.label}</span>
                     </div>
                   );
                 })}
@@ -153,7 +153,7 @@ export default function StatsPage() {
                 {(["Classes", "Study", "Focus", "Gym"] as const).map((l) => (
                   <div key={l} className="flex items-center gap-1.5">
                     <div className="h-2 w-2 rounded-full" style={{ backgroundColor: segColors[l.toLowerCase() as keyof typeof segColors] }} />
-                    <span className="text-[10px] text-white/40">{l}</span>
+                    <span className="text-[10px] text-[#a8a29e]">{l}</span>
                   </div>
                 ))}
               </div>
@@ -163,47 +163,47 @@ export default function StatsPage() {
           {/* Row 2 — three stat cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mt-3">
             {/* Habit Completion */}
-            <div className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.06] rounded-2xl p-5">
-              <p className="font-mono text-3xl font-bold text-white">85%</p>
-              <p className="text-[11px] uppercase tracking-wider text-white/30 mt-1">Completion rate</p>
-              <span className="inline-block mt-2 text-[10px] px-2 py-0.5 rounded-full bg-green-500/10 text-green-400 border border-green-500/20">
+            <div className="bg-[#1a1a1a] border border-[#2a2a2a] rounded-xl p-5">
+              <p className="font-mono text-3xl font-bold text-[#e8e4dc]">85%</p>
+              <p className="text-[11px] uppercase tracking-wider text-[#6b6560] mt-1">Completion rate</p>
+              <span className="inline-block mt-2 text-[10px] px-2 py-0.5 rounded-full bg-[#5b9a6f]/10 text-[#5b9a6f] border border-[#5b9a6f]/20">
                 +5%
               </span>
             </div>
 
             {/* Focus vs. Shallow */}
-            <div className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.06] rounded-2xl p-5">
-              <p className="text-[11px] uppercase tracking-wider text-white/30 mb-3">Focus vs. Shallow</p>
+            <div className="bg-[#1a1a1a] border border-[#2a2a2a] rounded-xl p-5">
+              <p className="text-[11px] uppercase tracking-wider text-[#6b6560] mb-3">Focus vs. Shallow</p>
               <div className="flex items-baseline gap-3">
-                <span className="font-mono text-2xl font-bold text-purple-400">2.5h</span>
-                <span className="text-xs text-white/30">deep</span>
-                <span className="text-white/15">/</span>
-                <span className="font-mono text-2xl font-bold text-white/40">4h</span>
-                <span className="text-xs text-white/30">shallow</span>
+                <span className="font-mono text-2xl font-bold text-[#8b7ab8]">2.5h</span>
+                <span className="text-xs text-[#6b6560]">deep</span>
+                <span className="text-[#4a4540]">/</span>
+                <span className="font-mono text-2xl font-bold text-[#a8a29e]">4h</span>
+                <span className="text-xs text-[#6b6560]">shallow</span>
               </div>
-              <div className="h-[3px] bg-white/[0.06] rounded-full mt-3 overflow-hidden">
-                <div className="h-full w-[38%] rounded-full bg-gradient-to-r from-purple-500 to-indigo-500" />
+              <div className="h-[3px] bg-[#222222] rounded-full mt-3 overflow-hidden">
+                <div className="h-full w-[38%] rounded-full bg-gradient-to-r from-[#8b7ab8] to-[#6b8aad]" />
               </div>
             </div>
 
             {/* Work-Life Balance */}
-            <div className="bg-white/[0.03] backdrop-blur-xl border border-white/[0.06] rounded-2xl p-5">
-              <p className="text-[11px] uppercase tracking-wider text-white/30 mb-3">Work-Life Balance</p>
-              <div className="divide-y divide-white/[0.06]">
+            <div className="bg-[#1a1a1a] border border-[#2a2a2a] rounded-xl p-5">
+              <p className="text-[11px] uppercase tracking-wider text-[#6b6560] mb-3">Work-Life Balance</p>
+              <div className="divide-y divide-[#2a2a2a]">
                 <div className="flex items-center gap-3 pb-3">
                   <span className="text-base">{"\uD83D\uDCDA"}</span>
-                  <span className="text-xs text-white/40 flex-1">Study</span>
-                  <span className="font-mono text-sm font-bold text-white/80">16h avg</span>
+                  <span className="text-xs text-[#a8a29e] flex-1">Study</span>
+                  <span className="font-mono text-sm font-bold text-[#e8e4dc]">16h avg</span>
                 </div>
                 <div className="flex items-center gap-3 py-3">
                   <span className="text-base">{"\uD83C\uDFCB\uFE0F"}</span>
-                  <span className="text-xs text-white/40 flex-1">Exercise</span>
-                  <span className="font-mono text-sm font-bold text-white/80">7h</span>
+                  <span className="text-xs text-[#a8a29e] flex-1">Exercise</span>
+                  <span className="font-mono text-sm font-bold text-[#e8e4dc]">7h</span>
                 </div>
                 <div className="flex items-center gap-3 pt-3">
                   <span className="text-base">{"\uD83C\uDFAE"}</span>
-                  <span className="text-xs text-white/40 flex-1">Free time</span>
-                  <span className="font-mono text-sm font-bold text-white/80">25h</span>
+                  <span className="text-xs text-[#a8a29e] flex-1">Free time</span>
+                  <span className="font-mono text-sm font-bold text-[#e8e4dc]">25h</span>
                 </div>
               </div>
             </div>
@@ -214,13 +214,13 @@ export default function StatsPage() {
       {activeTab === 1 && (
         <div className="space-y-4 mt-6">
           {/* Week Header */}
-          <div className="bg-white/[0.03] border border-white/[0.06] rounded-2xl p-6">
+          <div className="bg-[#1a1a1a] border border-[#2a2a2a] rounded-xl p-6">
             <div className="flex items-center justify-between mb-4">
               <div>
-                <h2 className="text-lg font-semibold text-white">Week of Mar 23 &ndash; Mar 29</h2>
-                <p className="text-xs text-white/30 mt-1">Auto-generated weekly summary</p>
+                <h2 className="text-lg font-semibold text-[#e8e4dc]">Week of Mar 23 &ndash; Mar 29</h2>
+                <p className="text-xs text-[#6b6560] mt-1">Auto-generated weekly summary</p>
               </div>
-              <span className="text-[11px] px-3 py-1 rounded-full bg-green-500/10 text-green-400 border border-green-500/20">Good week</span>
+              <span className="text-[11px] px-3 py-1 rounded-full bg-[#5b9a6f]/10 text-[#5b9a6f] border border-[#5b9a6f]/20">Good week</span>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
               {[
@@ -229,17 +229,17 @@ export default function StatsPage() {
                 { label: "Tasks Completed", value: "3/12", change: "-2", up: false },
                 { label: "Streak Days", value: "5/7", change: "+1", up: true },
               ].map(m => (
-                <div key={m.label} className="bg-white/[0.02] rounded-xl p-3">
-                  <p className="text-[10px] uppercase tracking-wider text-white/30">{m.label}</p>
-                  <p className="font-mono text-xl font-bold text-white mt-1">{m.value}</p>
-                  <span className={`text-[10px] ${m.up ? 'text-green-400' : 'text-red-400'}`}>{m.change} vs last week</span>
+                <div key={m.label} className="bg-[#1a1a1a] rounded-xl p-3">
+                  <p className="text-[10px] uppercase tracking-wider text-[#6b6560]">{m.label}</p>
+                  <p className="font-mono text-xl font-bold text-[#e8e4dc] mt-1">{m.value}</p>
+                  <span className={`text-[10px] ${m.up ? 'text-[#5b9a6f]' : 'text-[#b85c5c]'}`}>{m.change} vs last week</span>
                 </div>
               ))}
             </div>
           </div>
           {/* Highlights */}
-          <div className="bg-white/[0.03] border border-white/[0.06] rounded-2xl p-5">
-            <h3 className="text-sm font-semibold text-white/90 mb-3">Highlights</h3>
+          <div className="bg-[#1a1a1a] border border-[#2a2a2a] rounded-xl p-5">
+            <h3 className="text-sm font-semibold text-[#e8e4dc] mb-3">Highlights</h3>
             <div className="space-y-2.5">
               {[
                 { emoji: "\uD83C\uDFC6", text: "Longest gym streak this month \u2014 7 days" },
@@ -249,14 +249,14 @@ export default function StatsPage() {
               ].map((h, i) => (
                 <div key={i} className="flex items-start gap-3 text-sm">
                   <span className="text-base">{h.emoji}</span>
-                  <span className="text-white/60">{h.text}</span>
+                  <span className="text-[#a8a29e]">{h.text}</span>
                 </div>
               ))}
             </div>
           </div>
           {/* Day-by-Day */}
-          <div className="bg-white/[0.03] border border-white/[0.06] rounded-2xl p-5">
-            <h3 className="text-sm font-semibold text-white/90 mb-3">Day by Day</h3>
+          <div className="bg-[#1a1a1a] border border-[#2a2a2a] rounded-xl p-5">
+            <h3 className="text-sm font-semibold text-[#e8e4dc] mb-3">Day by Day</h3>
             <div className="space-y-1">
               {[
                 { day: "Mon", classes: 2, study: "1.5h", gym: true, focus: "0h", score: "Good" },
@@ -267,25 +267,25 @@ export default function StatsPage() {
                 { day: "Sat", classes: 0, study: "0h", gym: true, focus: "0h", score: "OK" },
                 { day: "Sun", classes: 0, study: "2h", gym: false, focus: "0h", score: "OK" },
               ].map(d => (
-                <div key={d.day} className="flex items-center gap-4 py-2 border-b border-white/[0.03] last:border-0">
-                  <span className="text-xs font-mono text-white/40 w-8">{d.day}</span>
-                  <span className="text-xs text-white/50 w-20">{d.classes} classes</span>
-                  <span className="text-xs text-white/50 w-16">{d.study} study</span>
+                <div key={d.day} className="flex items-center gap-4 py-2 border-b border-[#2a2a2a] last:border-0">
+                  <span className="text-xs font-mono text-[#a8a29e] w-8">{d.day}</span>
+                  <span className="text-xs text-[#a8a29e] w-20">{d.classes} classes</span>
+                  <span className="text-xs text-[#a8a29e] w-16">{d.study} study</span>
                   <span className="text-xs w-8">{d.gym ? '\u2705' : '\u2014'}</span>
-                  <span className="text-xs text-white/50 w-16">{d.focus} focus</span>
+                  <span className="text-xs text-[#a8a29e] w-16">{d.focus} focus</span>
                   <span className={`text-[10px] px-2 py-0.5 rounded-full ml-auto ${
-                    d.score === 'Great' ? 'bg-green-500/10 text-green-400' :
-                    d.score === 'Good' ? 'bg-blue-500/10 text-blue-400' :
-                    d.score === 'Low' ? 'bg-red-500/10 text-red-400' :
-                    'bg-white/[0.05] text-white/30'
+                    d.score === 'Great' ? 'bg-[#5b9a6f]/10 text-[#5b9a6f]' :
+                    d.score === 'Good' ? 'bg-[#6b8aad]/10 text-[#6b8aad]' :
+                    d.score === 'Low' ? 'bg-[#b85c5c]/10 text-[#b85c5c]' :
+                    'bg-[#222222] text-[#6b6560]'
                   }`}>{d.score}</span>
                 </div>
               ))}
             </div>
           </div>
           {/* Suggestions */}
-          <div className="bg-white/[0.03] border border-white/[0.06] rounded-2xl p-5">
-            <h3 className="text-sm font-semibold text-white/90 mb-3">Suggestions for Next Week</h3>
+          <div className="bg-[#1a1a1a] border border-[#2a2a2a] rounded-xl p-5">
+            <h3 className="text-sm font-semibold text-[#e8e4dc] mb-3">Suggestions for Next Week</h3>
             <div className="space-y-2">
               {[
                 "Block 2h focus sessions on Mon/Wed mornings \u2014 those were your lowest days",
@@ -294,8 +294,8 @@ export default function StatsPage() {
                 "Your study hours peak on Fri/Sun \u2014 try to spread more evenly",
               ].map((s, i) => (
                 <div key={i} className="flex items-start gap-2 text-sm">
-                  <span className="text-orange-400 mt-0.5 shrink-0">{"\u2192"}</span>
-                  <span className="text-white/50">{s}</span>
+                  <span className="text-[#c8a44e] mt-0.5 shrink-0">{"\u2192"}</span>
+                  <span className="text-[#a8a29e]">{s}</span>
                 </div>
               ))}
             </div>

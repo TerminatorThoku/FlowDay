@@ -26,7 +26,7 @@ const initialProjects = [
     description: "Geospatial intelligence visualization platform",
   },
   {
-    id: "p3", name: "Restaurant POS", color: "#22c55e", priority: "P3", status: "Active",
+    id: "p3", name: "Restaurant POS", color: "#5b9a6f", priority: "P3", status: "Active",
     hours: "4h / week", tech: ["Docker", "FastAPI", "Remotion"],
     tasks: [
       { name: "Order Flow", due: "Apr 1", done: false },
@@ -36,7 +36,7 @@ const initialProjects = [
     description: "Point of sale system for restaurant management",
   },
   {
-    id: "p4", name: "T Trades", color: "#a855f7", priority: "P4", status: "Active",
+    id: "p4", name: "T Trades", color: "#8b7ab8", priority: "P4", status: "Active",
     hours: "2h / week", tech: ["Electron", "Node.js"],
     tasks: [
       { name: "Trading Bot Logic", due: "Apr 4", done: false },
@@ -46,7 +46,7 @@ const initialProjects = [
     description: "Automated trading terminal",
   },
   {
-    id: "p5", name: "TerrorFundingMonitor", color: "#f97316", priority: "P5", status: "Active",
+    id: "p5", name: "TerrorFundingMonitor", color: "#c8944e", priority: "P5", status: "Active",
     hours: "2h / week", tech: ["Express", "Neo4j", "ML"],
     tasks: [
       { name: "Graph Database Setup", due: "Apr 6", done: false },
@@ -74,60 +74,60 @@ export default function ProjectsPage() {
     <div className="p-6 max-w-5xl">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-white">Projects</h1>
-          <p className="text-sm text-white/40 mt-1">{projects.length} active projects &middot; {projects.reduce((a, p) => a + p.totalTasks, 0)} total tasks</p>
+          <h1 className="text-2xl font-bold text-[#e8e4dc]">Projects</h1>
+          <p className="text-sm text-[#a8a29e] mt-1">{projects.length} active projects &middot; {projects.reduce((a, p) => a + p.totalTasks, 0)} total tasks</p>
         </div>
-        <button className="bg-orange-500 text-black font-medium rounded-xl px-4 py-2 text-sm hover:bg-orange-400 active:scale-[0.97] transition-all">
+        <button className="bg-[#c8a44e] text-black font-medium rounded-xl px-4 py-2 text-sm hover:bg-[#d4b05a] active:scale-[0.97] transition-all">
           + New Project
         </button>
       </div>
 
       <div className="space-y-4">
         {projects.map((project) => (
-          <div key={project.id} className="bg-white/[0.03] border border-white/[0.06] rounded-2xl overflow-hidden hover:border-white/[0.12] transition-all">
+          <div key={project.id} className="bg-[#1a1a1a] border border-[#2a2a2a] rounded-xl overflow-hidden hover:border-[#3a3a3a] transition-all">
             <div className="p-5">
               <div className="flex items-start justify-between">
                 <div className="flex items-center gap-3">
                   <div className="w-3 h-3 rounded-full shrink-0" style={{ background: project.color }} />
                   <div>
                     <div className="flex items-center gap-2">
-                      <h2 className="text-base font-semibold text-white">{project.name}</h2>
-                      <span className="text-[10px] font-mono font-bold px-1.5 py-0.5 rounded-md bg-white/[0.06] text-white/50">{project.priority}</span>
-                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-green-500/10 text-green-400 border border-green-500/20">{project.status}</span>
+                      <h2 className="text-base font-semibold text-[#e8e4dc]">{project.name}</h2>
+                      <span className="text-[10px] font-mono font-bold px-1.5 py-0.5 rounded-md bg-[#222222] text-[#a8a29e]">{project.priority}</span>
+                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#5b9a6f]/10 text-[#5b9a6f] border border-[#5b9a6f]/20">{project.status}</span>
                     </div>
-                    <p className="text-xs text-white/30 mt-0.5">{project.description}</p>
+                    <p className="text-xs text-[#6b6560] mt-0.5">{project.description}</p>
                   </div>
                 </div>
                 <div className="text-right shrink-0">
-                  <p className="text-xs text-white/40">{project.hours}</p>
-                  <p className="font-mono text-sm text-white/60 mt-0.5">{project.completedTasks}/{project.totalTasks}</p>
+                  <p className="text-xs text-[#a8a29e]">{project.hours}</p>
+                  <p className="font-mono text-sm text-[#a8a29e] mt-0.5">{project.completedTasks}/{project.totalTasks}</p>
                 </div>
               </div>
               <div className="flex gap-1.5 mt-3 ml-6">
                 {project.tech.map((t) => (
-                  <span key={t} className="text-[10px] bg-white/[0.04] text-white/40 rounded-md px-2 py-0.5">{t}</span>
+                  <span key={t} className="text-[10px] bg-[#222222] text-[#a8a29e] rounded-md px-2 py-0.5">{t}</span>
                 ))}
               </div>
-              <div className="mt-3 ml-6 h-[3px] bg-white/[0.06] rounded-full overflow-hidden">
+              <div className="mt-3 ml-6 h-[3px] bg-[#222222] rounded-full overflow-hidden">
                 <div className="h-full rounded-full transition-all duration-500" style={{
                   width: `${project.totalTasks > 0 ? (project.completedTasks / project.totalTasks) * 100 : 0}%`,
                   background: project.color
                 }} />
               </div>
             </div>
-            <div className="border-t border-white/[0.04] bg-white/[0.01]">
+            <div className="border-t border-[#2a2a2a] bg-[#1a1a1a]">
               {project.tasks.map((task, i) => (
                 <div key={i}
                   onClick={() => toggleTask(project.id, i)}
-                  className="flex items-center gap-3 px-5 py-3 border-b border-white/[0.03] last:border-b-0 hover:bg-white/[0.02] transition-colors cursor-pointer select-none">
+                  className="flex items-center gap-3 px-5 py-3 border-b border-[#2a2a2a] last:border-b-0 hover:bg-[#1a1a1a] transition-colors cursor-pointer select-none">
                   <div
                     className={`w-5 h-5 rounded-full border-2 shrink-0 flex items-center justify-center transition-all
-                      ${task.done ? 'border-green-500 bg-green-500/20' : 'border-white/20 hover:border-white/40'}`}
+                      ${task.done ? 'border-[#5b9a6f] bg-[#5b9a6f]/20' : 'border-[#3a3a3a] hover:border-[#4a4540]'}`}
                   >
-                    {task.done && <span className="text-[10px] text-green-400">{"\u2713"}</span>}
+                    {task.done && <span className="text-[10px] text-[#5b9a6f]">{"\u2713"}</span>}
                   </div>
-                  <span className={`text-sm flex-1 transition-all ${task.done ? 'text-white/30 line-through' : 'text-white/70'}`}>{task.name}</span>
-                  <span className="text-[11px] text-white/25 font-mono shrink-0">{task.due}</span>
+                  <span className={`text-sm flex-1 transition-all ${task.done ? 'text-[#6b6560] line-through' : 'text-[#a8a29e]'}`}>{task.name}</span>
+                  <span className="text-[11px] text-[#6b6560] font-mono shrink-0">{task.due}</span>
                 </div>
               ))}
             </div>

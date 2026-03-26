@@ -153,10 +153,10 @@ export default function TodayView({
       <AnimateIn>
         <div className="flex items-start justify-between">
           <div>
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent">
+            <h1 className="font-serif text-3xl font-semibold text-[#e8e4dc]">
               {getGreeting()}, {firstName}
             </h1>
-            <p className="text-sm text-white/32 font-mono mt-1">
+            <p className="text-sm text-[#6b6560] font-mono mt-1">
               {format(now, "EEEE, MMMM d, yyyy")}
             </p>
           </div>
@@ -177,12 +177,12 @@ export default function TodayView({
           <div className="flex flex-wrap gap-2">
             {streaks.map((s) => (
               <div key={s.type}>
-                <div className="flex items-center gap-1.5 bg-white/[0.04] rounded-full px-3 py-1.5 text-xs">
+                <div className="flex items-center gap-1.5 bg-[#222222] rounded-full px-3 py-1.5 text-xs">
                   <span>{STREAK_EMOJI[s.type] || "\u2B50"}</span>
-                  <span className="font-mono font-bold text-white/90">
+                  <span className="font-mono font-bold text-[#e8e4dc]">
                     {s.currentStreak}
                   </span>
-                  <span className="text-white/40">
+                  <span className="text-[#a8a29e]">
                     {s.type}
                   </span>
                 </div>
@@ -194,33 +194,33 @@ export default function TodayView({
 
       {/* Quick Stats Row */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mt-3">
-        <div className="bg-white/[0.03] border border-white/[0.06] rounded-xl p-3">
+        <div className="bg-[#1a1a1a] border border-[#2a2a2a] rounded-xl p-3">
           <span className="text-base">{"\u26A1"}</span>
-          <p className="text-[10px] uppercase tracking-wider text-white/30 mt-1">Focus Today</p>
-          <p className="font-mono text-xl font-bold text-white">0h</p>
-          <p className="text-[11px] text-white/30">of 3h goal</p>
+          <p className="text-[10px] uppercase tracking-wider text-[#6b6560] mt-1">Focus Today</p>
+          <p className="font-mono text-xl font-bold text-[#e8e4dc]">0h</p>
+          <p className="text-[11px] text-[#6b6560]">of 3h goal</p>
         </div>
-        <div className="bg-white/[0.03] border border-white/[0.06] rounded-xl p-3">
+        <div className="bg-[#1a1a1a] border border-[#2a2a2a] rounded-xl p-3">
           <span className="text-base">{"\u2705"}</span>
-          <p className="text-[10px] uppercase tracking-wider text-white/30 mt-1">Tasks Done</p>
-          <p className="font-mono text-xl font-bold text-white">{completedBlocks}/{totalBlocks}</p>
-          <p className="text-[11px] text-white/30">today</p>
+          <p className="text-[10px] uppercase tracking-wider text-[#6b6560] mt-1">Tasks Done</p>
+          <p className="font-mono text-xl font-bold text-[#e8e4dc]">{completedBlocks}/{totalBlocks}</p>
+          <p className="text-[11px] text-[#6b6560]">today</p>
         </div>
-        <div className="bg-white/[0.03] border border-white/[0.06] rounded-xl p-3">
+        <div className="bg-[#1a1a1a] border border-[#2a2a2a] rounded-xl p-3">
           <span className="text-base">{"\uD83D\uDD25"}</span>
-          <p className="text-[10px] uppercase tracking-wider text-white/30 mt-1">Streak</p>
-          <p className="font-mono text-xl font-bold text-white">
+          <p className="text-[10px] uppercase tracking-wider text-[#6b6560] mt-1">Streak</p>
+          <p className="font-mono text-xl font-bold text-[#e8e4dc]">
             {streaks.length > 0 ? Math.max(...streaks.map(s => s.currentStreak)) : 0}
           </p>
-          <p className="text-[11px] text-white/30">days</p>
+          <p className="text-[11px] text-[#6b6560]">days</p>
         </div>
-        <div className="bg-white/[0.03] border border-white/[0.06] rounded-xl p-3">
+        <div className="bg-[#1a1a1a] border border-[#2a2a2a] rounded-xl p-3">
           <span className="text-base">{"\u23F0"}</span>
-          <p className="text-[10px] uppercase tracking-wider text-white/30 mt-1">Next Deadline</p>
-          <p className="font-mono text-xl font-bold text-white truncate">
+          <p className="text-[10px] uppercase tracking-wider text-[#6b6560] mt-1">Next Deadline</p>
+          <p className="font-mono text-xl font-bold text-[#e8e4dc] truncate">
             {deadlineTasks.length > 0 ? deadlineTasks[0].title.split(' ').slice(0, 2).join(' ') : "Clear"}
           </p>
-          <p className="text-[11px] text-white/30">
+          <p className="text-[11px] text-[#6b6560]">
             {deadlineTasks.length > 0
               ? `due ${Math.max(1, Math.ceil((new Date(deadlineTasks[0].due_date!).getTime() - Date.now()) / 86400000)) <= 1 ? "tomorrow" : `in ${Math.ceil((new Date(deadlineTasks[0].due_date!).getTime() - Date.now()) / 86400000)} days`}`
               : "all clear"}
@@ -231,16 +231,16 @@ export default function TodayView({
       {/* Up Next card */}
       {upNext ? (
         <AnimateIn delay={0.15}>
-          <Card className="relative overflow-hidden border-white/[0.08]">
+          <Card className="relative overflow-hidden border-[#2a2a2a]">
             {/* Gradient top border */}
             <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-orange-500 via-orange-400 to-transparent" />
 
             <CardContent className="p-4">
               <div className="mb-3 flex items-center justify-between">
-                <span className="text-[11px] font-semibold uppercase tracking-[0.08em] text-white/32">
+                <span className="text-[11px] font-semibold uppercase tracking-[0.08em] text-[#6b6560]">
                   {upNext.isCurrent ? "Happening Now" : "Up Next"}
                 </span>
-                <span className="text-xs font-semibold text-orange-500">
+                <span className="text-xs font-semibold text-[#c8a44e]">
                   {upNext.isCurrent
                     ? `${Math.max(0, upNext.block.endMinutes - currentMinutes)}m left`
                     : formatCountdown(
@@ -272,17 +272,17 @@ export default function TodayView({
                   })()}
                 </div>
                 <div className="flex-1">
-                  <h3 className="font-semibold text-white/92">
+                  <h3 className="font-semibold text-[#e8e4dc]/92">
                     {upNext.block.title}
                   </h3>
-                  <p className="text-sm text-white/40">
+                  <p className="text-sm text-[#a8a29e]">
                     {formatMinutes(upNext.block.startMinutes)} -{" "}
                     {formatMinutes(upNext.block.endMinutes)}
                   </p>
                 </div>
               </div>
               {upNext.block.location && (
-                <div className="mt-2 flex items-center gap-1 text-white/32">
+                <div className="mt-2 flex items-center gap-1 text-[#6b6560]">
                   <MapPin className="h-3 w-3" />
                   <span className="text-xs">{upNext.block.location}</span>
                 </div>
@@ -316,11 +316,11 @@ export default function TodayView({
         <AnimateIn delay={0.15}>
           <Card>
             <CardContent className="flex flex-col items-center gap-2 p-6">
-              <Moon className="h-8 w-8 text-white/30" />
-              <p className="font-semibold text-white/90">
+              <Moon className="h-8 w-8 text-[#6b6560]" />
+              <p className="font-semibold text-[#e8e4dc]">
                 You&apos;re done for today!
               </p>
-              <p className="text-sm text-white/40">Rest up.</p>
+              <p className="text-sm text-[#a8a29e]">Rest up.</p>
             </CardContent>
           </Card>
         </AnimateIn>
@@ -331,10 +331,10 @@ export default function TodayView({
         <div className="flex items-center gap-4">
           <ProgressRing completed={completedBlocks} total={totalBlocks} />
           <div className="flex-1">
-            <p className="text-sm font-medium text-white/90">
+            <p className="text-sm font-medium text-[#e8e4dc]">
               Today&apos;s Progress
             </p>
-            <p className="mt-1 text-xs text-white/32">{stats}</p>
+            <p className="mt-1 text-xs text-[#6b6560]">{stats}</p>
           </div>
           <Button
             variant="secondary"
@@ -349,7 +349,7 @@ export default function TodayView({
       {/* Timeline */}
       <AnimateIn delay={0.25}>
         <div>
-          <h2 className="mb-3 text-[11px] font-semibold uppercase tracking-[0.08em] text-white/32">
+          <h2 className="mb-3 text-[11px] font-semibold uppercase tracking-[0.08em] text-[#6b6560]">
             Schedule
           </h2>
           <div className="relative">
@@ -377,7 +377,7 @@ export default function TodayView({
                           className={cn(
                             "h-[10px] w-[10px] rounded-full border-2",
                             isCurrent
-                              ? "bg-orange-500 border-orange-500 shadow-[0_0_8px_rgba(249,115,22,0.5)] animate-pulse-slow"
+                              ? "bg-[#c8a44e] border-[#c8a44e] shadow-[0_0_8px_rgba(249,115,22,0.5)] animate-pulse-slow"
                               : isPast
                               ? "bg-white/20 border-white/20"
                               : "bg-transparent border-white/20"
@@ -393,12 +393,12 @@ export default function TodayView({
                       {/* Card */}
                       <div
                         className={cn(
-                          "flex-1 rounded-xl surface-1 border border-white/[0.06] p-3 transition-all duration-200",
+                          "flex-1 rounded-xl surface-1 border border-[#2a2a2a] p-3 transition-all duration-200",
                           isPast && "opacity-40",
                           isCurrent &&
-                            "border-white/[0.12] bg-white/[0.05]",
+                            "border-[#3a3a3a] bg-[#222222]",
                           !isPast &&
-                            "group-hover:border-white/[0.12] group-hover:bg-white/[0.04]"
+                            "group-hover:border-[#3a3a3a] group-hover:bg-[#222222]"
                         )}
                       >
                         <div className="flex items-center gap-3">
@@ -407,16 +407,16 @@ export default function TodayView({
                             style={{ color: colorInfo.text || "#a1a1aa" }}
                           />
                           <div className="flex-1 min-w-0">
-                            <p className="text-sm font-medium text-white/90 truncate">
+                            <p className="text-sm font-medium text-[#e8e4dc] truncate">
                               {block.title}
                             </p>
                             <div className="flex items-center gap-2 mt-0.5">
-                              <span className="text-xs text-white/32 font-mono">
+                              <span className="text-xs text-[#6b6560] font-mono">
                                 {formatMinutes(block.startMinutes)} -{" "}
                                 {formatMinutes(block.endMinutes)}
                               </span>
                               {block.location && (
-                                <span className="flex items-center gap-0.5 text-xs text-white/25">
+                                <span className="flex items-center gap-0.5 text-xs text-[#4a4540]">
                                   <MapPin className="h-2.5 w-2.5" />
                                   {block.location}
                                 </span>
@@ -424,7 +424,7 @@ export default function TodayView({
                             </div>
                           </div>
                           {isCurrent && (
-                            <span className="rounded-full bg-orange-500/15 px-2 py-0.5 text-[10px] font-semibold text-orange-500 border border-orange-500/20">
+                            <span className="rounded-full bg-[#c8a44e]/15 px-2 py-0.5 text-[10px] font-semibold text-[#c8a44e] border border-[#c8a44e]/20">
                               NOW
                             </span>
                           )}

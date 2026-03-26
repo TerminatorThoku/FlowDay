@@ -4,25 +4,25 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const badgeVariants = cva(
-  "inline-flex items-center rounded-full border px-2.5 py-0.5 text-[11px] font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
+  "inline-flex items-center rounded-md border px-2 py-0.5 text-[11px] font-medium transition-colors",
   {
     variants: {
       variant: {
         default:
-          "border-transparent bg-orange-500/10 text-orange-400 border-orange-500/20",
+          "border-[#c8a44e]/20 bg-[#c8a44e]/10 text-[#c8a44e]",
         secondary:
-          "border-transparent bg-white/[0.06] text-white/70 border-white/[0.08]",
+          "border-[#2a2a2a] bg-[#222222] text-[#a8a29e]",
         destructive:
-          "border-transparent bg-red-500/10 text-red-400 border-red-500/20",
-        outline: "text-white/70 border-white/[0.12]",
+          "border-[#b85c5c]/20 bg-[#b85c5c]/10 text-[#b85c5c]",
+        outline: "text-[#a8a29e] border-[#2a2a2a]",
         success:
-          "border-transparent bg-green-500/10 text-green-400 border-green-500/20",
+          "border-[#5b9a6f]/20 bg-[#5b9a6f]/10 text-[#5b9a6f]",
         warning:
-          "border-transparent bg-amber-500/10 text-amber-400 border-amber-500/20",
+          "border-[#c8944e]/20 bg-[#c8944e]/10 text-[#c8944e]",
         focus:
-          "border-transparent bg-purple-500/10 text-purple-400 border-purple-500/20",
+          "border-[#8b7ab8]/20 bg-[#8b7ab8]/10 text-[#8b7ab8]",
         info:
-          "border-transparent bg-indigo-500/10 text-indigo-400 border-indigo-500/20",
+          "border-[#6b8aad]/20 bg-[#6b8aad]/10 text-[#6b8aad]",
       },
     },
     defaultVariants: {
