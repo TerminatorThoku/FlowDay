@@ -148,7 +148,7 @@ export default function TodayView({
     upNext && SPOTIFY_BLOCK_TYPES.has(upNext.block.type);
 
   return (
-    <div className="space-y-6 px-4 py-4">
+    <div className="space-y-4 px-4 py-3">
       {/* Greeting */}
       <AnimateIn>
         <div className="flex items-start justify-between">
@@ -193,7 +193,7 @@ export default function TodayView({
       )}
 
       {/* Quick Stats Row */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mt-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mt-3">
         <div className="bg-white/[0.03] border border-white/[0.06] rounded-xl p-3">
           <span className="text-base">{"\u26A1"}</span>
           <p className="text-[10px] uppercase tracking-wider text-white/30 mt-1">Focus Today</p>

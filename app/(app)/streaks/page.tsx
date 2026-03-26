@@ -40,9 +40,9 @@ export default function StreaksPage() {
               return (
                 <div key={i} className="flex flex-col items-center gap-1.5">
                   <div className={`w-8 h-8 rounded-full flex items-center justify-center text-[10px] font-mono transition-all
-                    ${completed ? 'bg-green-500/20 border-2 border-green-500 text-green-400' : 'bg-white/[0.04] border border-white/[0.08] text-white/20'}
+                    ${completed ? 'bg-green-500/20 border-2 border-green-500 text-green-400' : 'bg-white/[0.03] border border-white/[0.06] text-white/15'}
                     ${isToday ? 'ring-2 ring-orange-500 ring-offset-1 ring-offset-zinc-950' : ''}`}>
-                    {completed ? '\u2713' : dateNum}
+                    {completed ? '\u2713' : '\u2014'}
                   </div>
                   <span className="text-[9px] text-white/25 font-mono">{dayLabel}</span>
                 </div>

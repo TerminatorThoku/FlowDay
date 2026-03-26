@@ -33,9 +33,9 @@ const segColors = {
 export default function StatsPage() {
   const [activeTab, setActiveTab] = useState(0);
 
-  // Stacked bar max
+  // Stacked bar max (excluding Free for clearer visualization)
   const maxBar = Math.max(
-    ...weeks.map((w) => w.classes + w.study + w.focus + w.gym + w.free)
+    ...weeks.map((w) => w.classes + w.study + w.focus + w.gym)
   );
 
   return (
@@ -128,7 +128,6 @@ export default function StatsPage() {
                     { val: w.study, color: segColors.study },
                     { val: w.focus, color: segColors.focus },
                     { val: w.gym, color: segColors.gym },
-                    { val: w.free, color: segColors.free },
                   ];
                   return (
                     <div key={w.label} className="flex-1 flex flex-col items-center gap-1">
@@ -151,7 +150,7 @@ export default function StatsPage() {
               </div>
               {/* Legend */}
               <div className="flex flex-wrap gap-3 mt-3">
-                {(["Classes", "Study", "Focus", "Gym", "Free"] as const).map((l) => (
+                {(["Classes", "Study", "Focus", "Gym"] as const).map((l) => (
                   <div key={l} className="flex items-center gap-1.5">
                     <div className="h-2 w-2 rounded-full" style={{ backgroundColor: segColors[l.toLowerCase() as keyof typeof segColors] }} />
                     <span className="text-[10px] text-white/40">{l}</span>

@@ -66,14 +66,21 @@ export default function FocusPage() {
         {/* Bar Chart */}
         <div className="bg-white/[0.03] border border-white/[0.06] rounded-2xl p-5">
           <h3 className="text-sm font-semibold text-white/90 mb-4">Daily Focus Time</h3>
-          <div className="flex items-end justify-between gap-2 h-[140px]">
-            {[{d:"M",h:0},{d:"T",h:0.5},{d:"W",h:0},{d:"T",h:1},{d:"F",h:1},{d:"S",h:0},{d:"S",h:0}].map((item, i) => (
-              <div key={i} className="flex-1 flex flex-col items-center justify-end h-full">
-                <div className="w-full rounded-t-md bg-gradient-to-t from-purple-600 to-indigo-400 transition-all duration-700"
-                  style={{height: `${Math.max(item.h / 3 * 100, 0)}%`, minHeight: item.h > 0 ? '4px' : '0px'}}/>
-                <span className="text-[10px] text-white/30 font-mono mt-1">{item.d}</span>
-              </div>
-            ))}
+          <div className="flex gap-2 h-[140px]">
+            {/* Y-axis labels */}
+            <div className="flex flex-col justify-between text-[9px] text-white/20 font-mono w-5 shrink-0 pb-5">
+              <span>3h</span><span>2h</span><span>1h</span><span>0h</span>
+            </div>
+            {/* Bars */}
+            <div className="flex items-end justify-between gap-2 flex-1">
+              {[{d:"M",h:0},{d:"T",h:0.5},{d:"W",h:0},{d:"T",h:1},{d:"F",h:1},{d:"S",h:0},{d:"S",h:0}].map((item, i) => (
+                <div key={i} className="flex-1 flex flex-col items-center justify-end h-full">
+                  <div className={`w-full rounded-t-md transition-all duration-700 ${item.h > 0 ? 'bg-gradient-to-t from-purple-600 to-indigo-400' : 'bg-white/[0.06]'}`}
+                    style={{height: item.h > 0 ? `${Math.max((item.h / 3) * 100, 8)}%` : '2px'}}/>
+                  <span className="text-[10px] text-white/30 font-mono mt-1">{item.d}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
         {/* Donut Chart */}
