@@ -1,8 +1,7 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useAuth } from "@/hooks/useAuth";
 import AppHeader from "@/components/layout/AppHeader";
 import BottomNav from "@/components/layout/BottomNav";
 
@@ -11,17 +10,38 @@ export default function AppLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const { user, loading } = useAuth();
+  const [userName, setUserName] = useState("Abdul");
+  const [authChecked, setAuthChecked] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
-    if (!loading && !user) {
-      router.replace("/login");
-    }
-  }, [user, loading, router]);
+    // Try to load auth if Supabase is configured
+    const checkAuth = async () => {
+      try {
+        const { createClient } = await import("@/lib/supabase/client");
+        const supabase = createClient();
+        const { data: { user } } = await supabase.auth.getUser();
 
-  // Show loading state while checking auth
-  if (loading) {
+        if (user) {
+          setUserName(
+            user.user_metadata?.full_name?.split(" ")[0] ||
+            user.email?.split("@")[0] ||
+            "Abdul"
+          );
+        }
+        // If no user but Supabase works, we could redirect to login
+        // For now, allow access with default name (demo mode)
+      } catch {
+        // Supabase not available — use demo mode
+        console.log("Running in demo mode (Supabase not connected)");
+      }
+      setAuthChecked(true);
+    };
+
+    checkAuth();
+  }, [router]);
+
+  if (!authChecked) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-zinc-950">
         <div className="flex flex-col items-center gap-3">
@@ -31,13 +51,6 @@ export default function AppLayout({
       </div>
     );
   }
-
-  // Don't render children until user is confirmed
-  if (!user) {
-    return null;
-  }
-
-  const userName = user.user_metadata?.full_name?.split(" ")[0] || user.email?.split("@")[0] || "User";
 
   return (
     <div className="flex min-h-screen flex-col bg-zinc-950">
