@@ -18,6 +18,8 @@ import ProgressRing from "./ProgressRing";
 import QuickActions from "./QuickActions";
 import StreakBar from "./StreakBar";
 import UpcomingDeadlines from "./UpcomingDeadlines";
+import OptimizeButton from "./OptimizeButton";
+import SpotifyWidget from "@/components/shared/SpotifyWidget";
 import { cn } from "@/lib/utils";
 import type { TimeBlock, Task } from "@/types/schedule";
 import type { StreakData } from "@/lib/streaks/tracker";
@@ -29,6 +31,9 @@ interface TodayViewProps {
   streaks?: StreakData[];
   deadlineTasks?: Task[];
   onStartFocus?: () => void;
+  onOptimized?: (blocks: TimeBlock[]) => void;
+  studyPlaylistUrl?: string;
+  gymPlaylistUrl?: string;
 }
 
 function formatMinutes(mins: number): string {
@@ -74,15 +79,21 @@ function formatCountdown(minutes: number): string {
   return m > 0 ? `in ${h}h ${m}m` : `in ${h}h`;
 }
 
+const SPOTIFY_BLOCK_TYPES = new Set(["study", "gym", "swim"]);
+
 export default function TodayView({
   blocks,
   userName,
   streaks = [],
   deadlineTasks = [],
   onStartFocus,
+  onOptimized,
+  studyPlaylistUrl,
+  gymPlaylistUrl,
 }: TodayViewProps) {
   const now = new Date();
   const currentMinutes = now.getHours() * 60 + now.getMinutes();
+  const todayStr = format(now, "yyyy-MM-dd");
   const firstName = userName.split(" ")[0];
 
   const sortedBlocks = useMemo(
@@ -126,16 +137,30 @@ export default function TodayView({
 
   const allDone = !upNext && completedBlocks > 0;
 
+  // Check if the up-next block supports Spotify
+  const showSpotify =
+    upNext && SPOTIFY_BLOCK_TYPES.has(upNext.block.type);
+
   return (
     <div className="space-y-6 px-4 py-4">
-      {/* Greeting */}
-      <div>
-        <h1 className="text-2xl font-bold text-zinc-100">
-          {getGreeting()}, {firstName}
-        </h1>
-        <p className="text-sm text-zinc-500">
-          {format(now, "EEEE, MMMM d, yyyy")}
-        </p>
+      {/* Greeting + Optimize */}
+      <div className="flex items-start justify-between">
+        <div>
+          <h1 className="text-2xl font-bold text-zinc-100">
+            {getGreeting()}, {firstName}
+          </h1>
+          <p className="text-sm text-zinc-500">
+            {format(now, "EEEE, MMMM d, yyyy")}
+          </p>
+        </div>
+        {onOptimized && (
+          <OptimizeButton
+            blocks={blocks}
+            tasks={deadlineTasks}
+            date={todayStr}
+            onOptimized={onOptimized}
+          />
+        )}
       </div>
 
       {/* Streak Bar */}
@@ -197,6 +222,17 @@ export default function TodayView({
               </div>
             )}
 
+            {/* Spotify Widget */}
+            {showSpotify && (
+              <div className="mt-3">
+                <SpotifyWidget
+                  blockType={upNext.block.type as "study" | "gym" | "swim"}
+                  studyPlaylistUrl={studyPlaylistUrl}
+                  gymPlaylistUrl={gymPlaylistUrl}
+                />
+              </div>
+            )}
+
             {/* Start Focus button */}
             {onStartFocus && (
               <Button
@@ -247,6 +283,7 @@ export default function TodayView({
               block.startMinutes <= currentMinutes &&
               block.endMinutes > currentMinutes;
             const Icon = getBlockIcon(block.type);
+            const hasSpotify = SPOTIFY_BLOCK_TYPES.has(block.type);
 
             return (
               <div
@@ -288,6 +325,14 @@ export default function TodayView({
                     <span className="rounded-full bg-orange-500/20 px-2 py-0.5 text-[10px] font-semibold text-orange-500">
                       NOW
                     </span>
+                  )}
+                  {hasSpotify && isCurrent && (
+                    <SpotifyWidget
+                      blockType={block.type as "study" | "gym" | "swim"}
+                      className="ml-1 scale-90"
+                      studyPlaylistUrl={studyPlaylistUrl}
+                      gymPlaylistUrl={gymPlaylistUrl}
+                    />
                   )}
                 </div>
               </div>

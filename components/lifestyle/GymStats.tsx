@@ -1,12 +1,14 @@
 "use client";
 
+import { useMemo } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Dumbbell, TrendingUp, TrendingDown, Trophy, Minus } from "lucide-react";
 import { useLifestyleStore } from "@/stores/lifestyleStore";
 
 export default function GymStats() {
-  const weekLogs = useLifestyleStore((s) => s.getGymLogsForWeek());
+  const gymLogs = useLifestyleStore((s) => s.gymLogs);
+  const weekLogs = useMemo(() => useLifestyleStore.getState().getGymLogsForWeek(), [gymLogs]);
 
   // Unique sessions this week (unique dates)
   const uniqueDates = new Set(weekLogs.map((l) => l.date));

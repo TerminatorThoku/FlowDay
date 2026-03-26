@@ -23,8 +23,10 @@ import {
   BarChart3,
   Bell,
   BellOff,
+  Music,
 } from "lucide-react";
 import { useNotifications } from "@/hooks/useNotifications";
+import CalendarSync from "@/components/shared/CalendarSync";
 
 export default function SettingsPage() {
   const [name, setName] = useState("Abdul Wahid");
@@ -32,6 +34,8 @@ export default function SettingsPage() {
   const [sleepStart, setSleepStart] = useState("23");
   const [sleepEnd, setSleepEnd] = useState("6");
   const [syncing, setSyncing] = useState(false);
+  const [studyPlaylist, setStudyPlaylist] = useState("");
+  const [gymPlaylist, setGymPlaylist] = useState("");
 
   // Notification settings
   const { permission, requestPermission } = useNotifications();
@@ -345,6 +349,53 @@ export default function SettingsPage() {
           </div>
         </CardContent>
       </Card>
+
+      {/* Spotify Playlists */}
+      <Card className="border-zinc-800 bg-zinc-900/50">
+        <CardHeader className="pb-3">
+          <CardTitle className="flex items-center gap-2 text-sm text-zinc-300">
+            <Music className="h-4 w-4 text-[#1DB954]" />
+            Spotify Playlists
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div>
+            <label className="mb-1 block text-xs font-medium text-zinc-400">
+              Study Playlist URL
+            </label>
+            <Input
+              value={studyPlaylist}
+              onChange={(e) => setStudyPlaylist(e.target.value)}
+              placeholder="https://open.spotify.com/playlist/... or leave empty for default"
+              className="border-zinc-700 bg-zinc-800 text-zinc-100 placeholder:text-zinc-600"
+            />
+            <p className="mt-1 text-[10px] text-zinc-600">
+              Default: LoFi Beats playlist
+            </p>
+          </div>
+          <div>
+            <label className="mb-1 block text-xs font-medium text-zinc-400">
+              Gym Playlist URL
+            </label>
+            <Input
+              value={gymPlaylist}
+              onChange={(e) => setGymPlaylist(e.target.value)}
+              placeholder="https://open.spotify.com/playlist/... or leave empty for default"
+              className="border-zinc-700 bg-zinc-800 text-zinc-100 placeholder:text-zinc-600"
+            />
+            <p className="mt-1 text-[10px] text-zinc-600">
+              Default: Beast Mode playlist
+            </p>
+          </div>
+          <p className="text-xs text-zinc-500">
+            Paste your Spotify playlist link. Supports both web URLs and
+            spotify: URIs. Leave empty to use the default playlists.
+          </p>
+        </CardContent>
+      </Card>
+
+      {/* Google Calendar Sync */}
+      <CalendarSync intakeCode={intakeCode} />
 
       {/* Sync section */}
       <Card className="border-zinc-800 bg-zinc-900/50">

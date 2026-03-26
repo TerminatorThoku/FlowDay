@@ -1,13 +1,14 @@
 "use client";
 
+import { useMemo } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Waves, Clock, Trophy } from "lucide-react";
 import { useLifestyleStore } from "@/stores/lifestyleStore";
 
 export default function SwimStats() {
-  const weekLogs = useLifestyleStore((s) => s.getSwimLogsForWeek());
   const allLogs = useLifestyleStore((s) => s.swimLogs);
+  const weekLogs = useMemo(() => useLifestyleStore.getState().getSwimLogsForWeek(), [allLogs]);
 
   // Sessions this week (unique dates)
   const uniqueDates = new Set(weekLogs.map((l) => l.date));

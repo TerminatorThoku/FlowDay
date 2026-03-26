@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -42,10 +42,10 @@ export default function GymLog() {
   const [rows, setRows] = useState<ExerciseRow[]>([createEmptyRow()]);
 
   const addGymEntry = useLifestyleStore((s) => s.addGymEntry);
-  const getGymLogsForDate = useLifestyleStore((s) => s.getGymLogsForDate);
+  const gymLogs = useLifestyleStore((s) => s.gymLogs);
   const deleteGymEntry = useLifestyleStore((s) => s.deleteGymEntry);
 
-  const todayLogs = getGymLogsForDate(date);
+  const todayLogs = useMemo(() => gymLogs.filter((e) => e.date === date), [gymLogs, date]);
 
   const updateRow = (tempId: string, field: keyof ExerciseRow, value: string) => {
     setRows((prev) =>

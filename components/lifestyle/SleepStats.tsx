@@ -9,8 +9,8 @@ import { format, subDays } from "date-fns";
 const DAY_LABELS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
 export default function SleepStats() {
-  const weekLogs = useLifestyleStore((s) => s.getSleepLogsForWeek());
   const allLogs = useLifestyleStore((s) => s.sleepLogs);
+  const weekLogs = useMemo(() => useLifestyleStore.getState().getSleepLogsForWeek(), [allLogs]);
 
   // Average sleep this week
   const avgSleep =
