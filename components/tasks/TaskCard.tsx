@@ -3,8 +3,10 @@
 import { motion } from "framer-motion";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
-import { Clock, CalendarDays } from "lucide-react";
+import { Clock, CalendarDays, Timer } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { fireConfetti } from "@/components/shared/Confetti";
+import DeadlineBar from "@/components/tasks/DeadlineBar";
 import type { Task } from "@/types/schedule";
 
 interface TaskCardProps {
@@ -12,6 +14,7 @@ interface TaskCardProps {
   projectColor: string;
   onComplete: () => void;
   onEdit: () => void;
+  onFocus?: () => void;
 }
 
 const priorityConfig = {
@@ -33,9 +36,17 @@ export default function TaskCard({
   projectColor,
   onComplete,
   onEdit,
+  onFocus,
 }: TaskCardProps) {
   const priority = priorityConfig[task.priority];
   const isDone = task.status === "done";
+
+  const handleComplete = () => {
+    if (!isDone) {
+      fireConfetti();
+    }
+    onComplete();
+  };
 
   return (
     <motion.div
@@ -44,7 +55,7 @@ export default function TaskCard({
       dragElastic={0.1}
       onDragEnd={(_, info) => {
         if (info.offset.x > 80) {
-          onComplete();
+          handleComplete();
         }
       }}
       className={cn(
@@ -97,13 +108,30 @@ export default function TaskCard({
               </span>
             </div>
           )}
+
+          {/* Focus button */}
+          {!isDone && onFocus && (
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                onFocus();
+              }}
+              className="flex items-center gap-1 rounded-full bg-orange-500/10 px-2 py-0.5 text-[10px] font-medium text-orange-400 transition-colors hover:bg-orange-500/20"
+            >
+              <Timer className="h-3 w-3" />
+              Focus
+            </button>
+          )}
         </div>
+
+        {/* Deadline bar */}
+        {task.due_date && <DeadlineBar dueDate={task.due_date} />}
       </div>
 
       {/* Checkbox */}
       <Checkbox
         checked={isDone}
-        onCheckedChange={() => onComplete()}
+        onCheckedChange={() => handleComplete()}
         className="mt-1 h-5 w-5 rounded-full border-zinc-600 data-[state=checked]:border-orange-500 data-[state=checked]:bg-orange-500"
       />
     </motion.div>

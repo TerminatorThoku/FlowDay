@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -11,7 +12,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { RefreshCw, User, Clock, Info } from "lucide-react";
+import {
+  RefreshCw,
+  User,
+  Clock,
+  Info,
+  GraduationCap,
+  Dumbbell,
+  ChevronRight,
+} from "lucide-react";
 
 export default function SettingsPage() {
   const [name, setName] = useState("Abdul Wahid");
@@ -35,6 +44,54 @@ export default function SettingsPage() {
   return (
     <div className="space-y-6 px-4 py-4">
       <h1 className="text-xl font-bold text-zinc-100">Settings</h1>
+
+      {/* Quick Links */}
+      <div className="space-y-2">
+        <h2 className="text-xs font-semibold uppercase tracking-wider text-zinc-500">
+          Tools
+        </h2>
+        <Link href="/gpa">
+          <Card className="border-zinc-800 bg-zinc-900/50 transition-colors hover:border-zinc-700 hover:bg-zinc-900">
+            <CardContent className="flex items-center justify-between p-4">
+              <div className="flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-orange-500/10">
+                  <GraduationCap className="h-5 w-5 text-orange-500" />
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-zinc-200">
+                    GPA Calculator
+                  </p>
+                  <p className="text-xs text-zinc-500">
+                    Track grades and calculate GPA
+                  </p>
+                </div>
+              </div>
+              <ChevronRight className="h-4 w-4 text-zinc-600" />
+            </CardContent>
+          </Card>
+        </Link>
+
+        <Link href="/lifestyle">
+          <Card className="border-zinc-800 bg-zinc-900/50 transition-colors hover:border-zinc-700 hover:bg-zinc-900">
+            <CardContent className="flex items-center justify-between p-4">
+              <div className="flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-green-500/10">
+                  <Dumbbell className="h-5 w-5 text-green-500" />
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-zinc-200">
+                    Gym & Swim Log
+                  </p>
+                  <p className="text-xs text-zinc-500">
+                    Track workouts, swimming, and sleep
+                  </p>
+                </div>
+              </div>
+              <ChevronRight className="h-4 w-4 text-zinc-600" />
+            </CardContent>
+          </Card>
+        </Link>
+      </div>
 
       {/* Profile section */}
       <Card className="border-zinc-800 bg-zinc-900/50">

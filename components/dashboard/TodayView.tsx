@@ -10,17 +10,25 @@ import {
   Code2,
   Coffee,
   Moon,
+  Timer,
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import ProgressRing from "./ProgressRing";
 import QuickActions from "./QuickActions";
+import StreakBar from "./StreakBar";
+import UpcomingDeadlines from "./UpcomingDeadlines";
 import { cn } from "@/lib/utils";
-import type { TimeBlock } from "@/types/schedule";
+import type { TimeBlock, Task } from "@/types/schedule";
+import type { StreakData } from "@/lib/streaks/tracker";
 import { BLOCK_COLORS, type BlockCategory } from "@/lib/constants";
 
 interface TodayViewProps {
   blocks: TimeBlock[];
   userName: string;
+  streaks?: StreakData[];
+  deadlineTasks?: Task[];
+  onStartFocus?: () => void;
 }
 
 function formatMinutes(mins: number): string {
@@ -66,7 +74,13 @@ function formatCountdown(minutes: number): string {
   return m > 0 ? `in ${h}h ${m}m` : `in ${h}h`;
 }
 
-export default function TodayView({ blocks, userName }: TodayViewProps) {
+export default function TodayView({
+  blocks,
+  userName,
+  streaks = [],
+  deadlineTasks = [],
+  onStartFocus,
+}: TodayViewProps) {
   const now = new Date();
   const currentMinutes = now.getHours() * 60 + now.getMinutes();
   const firstName = userName.split(" ")[0];
@@ -124,6 +138,9 @@ export default function TodayView({ blocks, userName }: TodayViewProps) {
         </p>
       </div>
 
+      {/* Streak Bar */}
+      {streaks.length > 0 && <StreakBar streaks={streaks} />}
+
       {/* Up Next card */}
       {upNext ? (
         <Card className="border-zinc-800 bg-zinc-900/80">
@@ -178,6 +195,18 @@ export default function TodayView({ blocks, userName }: TodayViewProps) {
                 <MapPin className="h-3 w-3" />
                 <span className="text-xs">{upNext.block.location}</span>
               </div>
+            )}
+
+            {/* Start Focus button */}
+            {onStartFocus && (
+              <Button
+                onClick={onStartFocus}
+                size="sm"
+                className="mt-3 w-full bg-orange-500 text-white hover:bg-orange-600"
+              >
+                <Timer className="mr-2 h-4 w-4" />
+                Start Focus
+              </Button>
             )}
           </CardContent>
         </Card>
@@ -266,6 +295,9 @@ export default function TodayView({ blocks, userName }: TodayViewProps) {
           })}
         </div>
       </div>
+
+      {/* Upcoming Deadlines */}
+      <UpcomingDeadlines tasks={deadlineTasks} />
 
       <QuickActions />
     </div>

@@ -88,6 +88,15 @@ export interface APUClassEntry {
   DATESTAMP_ISO: string;
 }
 
+export interface PomodoroSession {
+  id: string;
+  task_id: string | null;
+  subject: string | null;
+  started_at: string;
+  duration_minutes: number;
+  completed: boolean;
+}
+
 export interface UserProfile {
   id: string;
   full_name: string;

@@ -24,13 +24,22 @@ export default function BottomNav() {
               ? pathname === "/"
               : pathname.startsWith(tab.path);
 
+          // Also highlight Settings when on sub-pages like /gpa or /lifestyle
+          const isSettingsActive =
+            tab.path === "/settings" &&
+            (pathname.startsWith("/settings") ||
+              pathname.startsWith("/gpa") ||
+              pathname.startsWith("/lifestyle"));
+
+          const active = isActive || isSettingsActive;
+
           return (
             <Link
               key={tab.path}
               href={tab.path}
               className={cn(
                 "flex flex-1 flex-col items-center gap-1 py-2 transition-colors",
-                isActive ? "text-orange-500" : "text-zinc-500"
+                active ? "text-orange-500" : "text-zinc-500"
               )}
             >
               <tab.icon className="h-5 w-5" />
