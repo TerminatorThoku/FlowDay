@@ -43,11 +43,24 @@ const config: Config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        // Accent palette
+        "accent-blue": "#6366f1",
+        "accent-green": "#22c55e",
+        "accent-amber": "#f59e0b",
+        "accent-red": "#ef4444",
+        "accent-purple": "#a855f7",
+        "accent-cyan": "#06b6d4",
       },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+      },
+      fontFamily: {
+        mono: ["JetBrains Mono", "SF Mono", "Fira Code", "monospace"],
+      },
+      animation: {
+        "pulse-slow": "pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite",
       },
     },
   },
