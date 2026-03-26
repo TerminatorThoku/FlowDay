@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { format } from "date-fns";
 import TodayView from "@/components/dashboard/TodayView";
 import PomodoroSheet from "@/components/pomodoro/PomodoroSheet";
 import NotificationPrompt from "@/components/shared/NotificationPrompt";
