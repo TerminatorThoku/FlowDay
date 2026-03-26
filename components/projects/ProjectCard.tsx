@@ -6,12 +6,15 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import PriorityBadge from "./PriorityBadge";
+import HealthScore from "./HealthScore";
 import { cn } from "@/lib/utils";
 import type { Project } from "@/types/schedule";
+import type { ProjectHealth } from "@/lib/projects/health";
 
 interface ProjectCardProps {
   project: Project;
   taskCount: { total: number; done: number };
+  health?: ProjectHealth;
   children?: React.ReactNode;
 }
 
@@ -24,6 +27,7 @@ const statusConfig = {
 export default function ProjectCard({
   project,
   taskCount,
+  health,
   children,
 }: ProjectCardProps) {
   const [expanded, setExpanded] = useState(false);
@@ -45,7 +49,7 @@ export default function ProjectCard({
           />
 
           <div className="flex-1 space-y-2">
-            {/* Top row: name + badges */}
+            {/* Top row: name + badges + health */}
             <div className="flex items-center gap-2">
               <h3 className="text-base font-bold text-zinc-100">
                 {project.name}
@@ -54,6 +58,7 @@ export default function ProjectCard({
               <Badge variant="outline" className={cn("text-[10px]", status.className)}>
                 {status.label}
               </Badge>
+              {health && <HealthScore health={health} compact />}
             </div>
 
             {/* Meta info */}

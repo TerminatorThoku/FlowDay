@@ -24,12 +24,13 @@ export default function BottomNav() {
               ? pathname === "/"
               : pathname.startsWith(tab.path);
 
-          // Also highlight Settings when on sub-pages like /gpa or /lifestyle
+          // Also highlight Settings when on sub-pages like /gpa, /lifestyle, or /report
           const isSettingsActive =
             tab.path === "/settings" &&
             (pathname.startsWith("/settings") ||
               pathname.startsWith("/gpa") ||
-              pathname.startsWith("/lifestyle"));
+              pathname.startsWith("/lifestyle") ||
+              pathname.startsWith("/report"));
 
           const active = isActive || isSettingsActive;
 

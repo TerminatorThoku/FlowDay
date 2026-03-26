@@ -1,8 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { format } from "date-fns";
 import TodayView from "@/components/dashboard/TodayView";
 import PomodoroSheet from "@/components/pomodoro/PomodoroSheet";
+import NotificationPrompt from "@/components/shared/NotificationPrompt";
+import { useNotifications } from "@/hooks/useNotifications";
 import type { TimeBlock, Task } from "@/types/schedule";
 import type { StreakData } from "@/lib/streaks/tracker";
 
@@ -174,6 +177,34 @@ const mockDeadlineTasks: Task[] = [
 export default function DashboardPage() {
   const [pomodoroOpen, setPomodoroOpen] = useState(false);
   const [focusTask, setFocusTask] = useState<{ title?: string; subject?: string }>({});
+  const {
+    permission,
+    requestPermission,
+    scheduleBlockReminders,
+    scheduleStreakWarnings,
+    scheduleCodingReminder,
+  } = useNotifications();
+
+  // Schedule notifications for today's blocks when dashboard loads
+  useEffect(() => {
+    if (permission === "granted") {
+      scheduleBlockReminders(mockBlocks);
+
+      // Schedule streak warnings for incomplete streaks
+      const streakWarningData = mockStreaks.map((s) => ({
+        type: s.type,
+        current: s.currentStreak,
+        todayCompleted: s.todayCompleted,
+      }));
+      scheduleStreakWarnings(streakWarningData, todayStr);
+
+      // Schedule coding reminder if no coding done today
+      const hasCodingToday = mockStreaks.find(
+        (s) => s.type === "coding"
+      )?.todayCompleted;
+      scheduleCodingReminder(!!hasCodingToday, todayStr, "GameVault");
+    }
+  }, [permission, scheduleBlockReminders, scheduleStreakWarnings, scheduleCodingReminder]);
 
   const handleStartFocus = (title?: string, subject?: string) => {
     setFocusTask({ title, subject });
@@ -182,6 +213,13 @@ export default function DashboardPage() {
 
   return (
     <>
+      <div className="space-y-4 px-4 pt-4">
+        {/* Notification prompt - shows once if not yet granted */}
+        <NotificationPrompt
+          permission={permission}
+          onRequestPermission={requestPermission}
+        />
+      </div>
       <TodayView
         blocks={mockBlocks}
         userName="Abdul Wahid"

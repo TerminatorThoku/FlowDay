@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -20,7 +20,11 @@ import {
   GraduationCap,
   Dumbbell,
   ChevronRight,
+  BarChart3,
+  Bell,
+  BellOff,
 } from "lucide-react";
+import { useNotifications } from "@/hooks/useNotifications";
 
 export default function SettingsPage() {
   const [name, setName] = useState("Abdul Wahid");
@@ -29,11 +33,34 @@ export default function SettingsPage() {
   const [sleepEnd, setSleepEnd] = useState("6");
   const [syncing, setSyncing] = useState(false);
 
+  // Notification settings
+  const { permission, requestPermission } = useNotifications();
+  const [notifEnabled, setNotifEnabled] = useState(false);
+  const [classReminder, setClassReminder] = useState("15");
+  const [taskReminder, setTaskReminder] = useState("10");
+  const [gymReminder, setGymReminder] = useState("30");
+  const [streakWarning, setStreakWarning] = useState(true);
+
+  useEffect(() => {
+    setNotifEnabled(permission === "granted");
+  }, [permission]);
+
   const handleSync = async () => {
     setSyncing(true);
     // Placeholder: will connect to APU API
     await new Promise((resolve) => setTimeout(resolve, 2000));
     setSyncing(false);
+  };
+
+  const handleToggleNotifications = async () => {
+    if (permission === "granted") {
+      // Already granted; toggling off is just UI-level
+      setNotifEnabled(!notifEnabled);
+      return;
+    }
+    // Request permission
+    const result = await requestPermission();
+    setNotifEnabled(result === "granted");
   };
 
   const hours = Array.from({ length: 24 }, (_, i) => ({
@@ -91,7 +118,154 @@ export default function SettingsPage() {
             </CardContent>
           </Card>
         </Link>
+
+        <Link href="/report">
+          <Card className="border-zinc-800 bg-zinc-900/50 transition-colors hover:border-zinc-700 hover:bg-zinc-900">
+            <CardContent className="flex items-center justify-between p-4">
+              <div className="flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-violet-500/10">
+                  <BarChart3 className="h-5 w-5 text-violet-500" />
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-zinc-200">
+                    Weekly Report
+                  </p>
+                  <p className="text-xs text-zinc-500">
+                    Study, coding, fitness, and streak stats
+                  </p>
+                </div>
+              </div>
+              <ChevronRight className="h-4 w-4 text-zinc-600" />
+            </CardContent>
+          </Card>
+        </Link>
       </div>
+
+      {/* Notifications Section */}
+      <Card className="border-zinc-800 bg-zinc-900/50">
+        <CardHeader className="pb-3">
+          <CardTitle className="flex items-center gap-2 text-sm text-zinc-300">
+            <Bell className="h-4 w-4" />
+            Push Notifications
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          {/* Main toggle */}
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              {notifEnabled ? (
+                <Bell className="h-4 w-4 text-orange-500" />
+              ) : (
+                <BellOff className="h-4 w-4 text-zinc-500" />
+              )}
+              <span className="text-sm text-zinc-300">
+                {notifEnabled ? "Notifications enabled" : "Notifications off"}
+              </span>
+            </div>
+            <button
+              onClick={handleToggleNotifications}
+              className={`relative h-6 w-11 rounded-full transition-colors ${
+                notifEnabled ? "bg-orange-500" : "bg-zinc-700"
+              }`}
+            >
+              <span
+                className={`absolute left-0.5 top-0.5 h-5 w-5 rounded-full bg-white transition-transform ${
+                  notifEnabled ? "translate-x-5" : "translate-x-0"
+                }`}
+              />
+            </button>
+          </div>
+
+          {permission === "denied" && (
+            <p className="text-xs text-red-400">
+              Notifications are blocked in your browser. Please enable them in
+              site settings.
+            </p>
+          )}
+
+          {notifEnabled && (
+            <>
+              <div className="h-px bg-zinc-800" />
+
+              {/* Class reminders */}
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-zinc-400">
+                  Class reminders
+                </span>
+                <Select value={classReminder} onValueChange={setClassReminder}>
+                  <SelectTrigger className="w-32 border-zinc-700 bg-zinc-800 text-zinc-100">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent className="border-zinc-700 bg-zinc-800">
+                    <SelectItem value="5">5 min before</SelectItem>
+                    <SelectItem value="10">10 min before</SelectItem>
+                    <SelectItem value="15">15 min before</SelectItem>
+                    <SelectItem value="30">30 min before</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {/* Task reminders */}
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-zinc-400">
+                  Task reminders
+                </span>
+                <Select value={taskReminder} onValueChange={setTaskReminder}>
+                  <SelectTrigger className="w-32 border-zinc-700 bg-zinc-800 text-zinc-100">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent className="border-zinc-700 bg-zinc-800">
+                    <SelectItem value="5">5 min before</SelectItem>
+                    <SelectItem value="10">10 min before</SelectItem>
+                    <SelectItem value="15">15 min before</SelectItem>
+                    <SelectItem value="30">30 min before</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {/* Gym reminders */}
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-zinc-400">
+                  Gym reminders
+                </span>
+                <Select value={gymReminder} onValueChange={setGymReminder}>
+                  <SelectTrigger className="w-32 border-zinc-700 bg-zinc-800 text-zinc-100">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent className="border-zinc-700 bg-zinc-800">
+                    <SelectItem value="15">15 min before</SelectItem>
+                    <SelectItem value="30">30 min before</SelectItem>
+                    <SelectItem value="45">45 min before</SelectItem>
+                    <SelectItem value="60">60 min before</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {/* Streak warnings */}
+              <div className="flex items-center justify-between">
+                <div>
+                  <span className="text-sm text-zinc-400">
+                    Streak warnings
+                  </span>
+                  <p className="text-xs text-zinc-600">Daily at 9 PM</p>
+                </div>
+                <button
+                  onClick={() => setStreakWarning(!streakWarning)}
+                  className={`relative h-6 w-11 rounded-full transition-colors ${
+                    streakWarning ? "bg-orange-500" : "bg-zinc-700"
+                  }`}
+                >
+                  <span
+                    className={`absolute left-0.5 top-0.5 h-5 w-5 rounded-full bg-white transition-transform ${
+                      streakWarning ? "translate-x-5" : "translate-x-0"
+                    }`}
+                  />
+                </button>
+              </div>
+            </>
+          )}
+        </CardContent>
+      </Card>
 
       {/* Profile section */}
       <Card className="border-zinc-800 bg-zinc-900/50">
