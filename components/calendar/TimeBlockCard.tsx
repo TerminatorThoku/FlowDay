@@ -120,7 +120,7 @@ export default function TimeBlockCard({
           "relative h-full w-full overflow-hidden rounded-xl px-2 py-1 text-left transition-all duration-200 cursor-pointer hover:brightness-110 hover:shadow-lg",
           isPast && !isDragMode ? "opacity-50" : "opacity-100",
           isDragMode &&
-            "scale-[1.02] shadow-lg shadow-black/40 ring-2 ring-orange-500/50"
+            "scale-[1.02] shadow-lg shadow-black/40 ring-2 ring-indigo-500/50"
         )}
         style={{
           backgroundColor: isDragMode
@@ -160,7 +160,7 @@ export default function TimeBlockCard({
         <div className="absolute -bottom-8 left-0 right-0 flex items-center justify-center gap-2 z-50">
           <button
             onClick={handleDragStart}
-            className="flex items-center gap-1 rounded-full bg-orange-500 px-3 py-1 text-[10px] font-semibold text-white shadow-md transition-colors hover:bg-orange-600"
+            className="flex items-center gap-1 rounded-full bg-indigo-600 px-3 py-1 text-[10px] font-semibold text-white shadow-md transition-colors hover:bg-indigo-700"
           >
             <GripVertical className="h-3 w-3" />
             Move
@@ -168,7 +168,7 @@ export default function TimeBlockCard({
           {(block.type === "gym" || block.type === "swim") && (
             <button
               onClick={handleSkip}
-              className="flex items-center gap-1 rounded-full bg-zinc-700 px-3 py-1 text-[10px] font-semibold text-zinc-200 shadow-md transition-colors hover:bg-zinc-600"
+              className="flex items-center gap-1 rounded-full bg-stone-700 px-3 py-1 text-[10px] font-semibold text-stone-200 shadow-md transition-colors hover:bg-stone-600"
             >
               <SkipForward className="h-3 w-3" />
               Skip
@@ -176,7 +176,7 @@ export default function TimeBlockCard({
           )}
           <button
             onClick={handleCancelDrag}
-            className="rounded-full bg-zinc-800 px-3 py-1 text-[10px] font-semibold text-zinc-400 shadow-md transition-colors hover:bg-zinc-700"
+            className="rounded-full bg-stone-800 px-3 py-1 text-[10px] font-semibold text-stone-400 shadow-md transition-colors hover:bg-stone-700"
           >
             Cancel
           </button>

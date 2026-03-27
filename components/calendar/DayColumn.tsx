@@ -38,24 +38,24 @@ export default function DayColumn({
   return (
     <div
       className={cn(
-        "relative min-w-[140px] flex-shrink-0 border-r border-white/[0.04]",
-        isToday && "bg-white/[0.02]"
+        "relative min-w-[140px] flex-shrink-0 border-r border-stone-200",
+        isToday && "bg-stone-50"
       )}
     >
       {/* Day header */}
       <div
         className={cn(
-          "sticky top-0 z-10 flex flex-col items-center border-b border-white/[0.04] bg-zinc-950 py-2",
-          isToday && "bg-white/[0.03]"
+          "sticky top-0 z-10 flex flex-col items-center border-b border-stone-200 bg-white py-2",
+          isToday && "bg-stone-50"
         )}
       >
-        <span className="text-xs text-white/40">{dayName}</span>
+        <span className="text-xs text-stone-400">{dayName}</span>
         <span
           className={cn(
             "flex h-7 w-7 items-center justify-center rounded-full text-sm font-semibold",
             isToday
-              ? "bg-orange-500 text-white"
-              : "text-zinc-200"
+              ? "bg-indigo-600 text-white"
+              : "text-stone-700"
           )}
         >
           {dayNumber}
@@ -68,7 +68,7 @@ export default function DayColumn({
         {Array.from({ length: TOTAL_HOURS }, (_, i) => (
           <div
             key={i}
-            className="absolute left-0 right-0 border-t border-white/[0.04]"
+            className="absolute left-0 right-0 border-t border-stone-200"
             style={{ top: `${i * HOUR_HEIGHT}px` }}
           />
         ))}

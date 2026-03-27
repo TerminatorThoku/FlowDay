@@ -68,42 +68,42 @@ export default function WeekView({ blocks, weekStart }: WeekViewProps) {
   return (
     <div className="flex h-full flex-col">
       {/* Week navigation header */}
-      <div className="flex items-center justify-between border-b border-white/[0.06] bg-zinc-950 px-4 py-3">
+      <div className="flex items-center justify-between border-b border-stone-200 bg-white px-4 py-3">
         <Button variant="ghost" size="icon" onClick={handlePrevWeek}>
-          <ChevronLeft className="h-5 w-5 text-zinc-400" />
+          <ChevronLeft className="h-5 w-5 text-stone-400" />
         </Button>
 
         <div className="flex items-center gap-2">
-          <span className="text-sm font-medium text-white/80">{weekLabel}</span>
+          <span className="text-sm font-medium text-stone-700">{weekLabel}</span>
           <Button
             variant="outline"
             size="sm"
             onClick={handleToday}
-            className="h-6 border-zinc-700 px-2 text-xs text-zinc-400 hover:text-zinc-100"
+            className="h-6 border-stone-200 px-2 text-xs text-stone-400 hover:text-stone-100"
           >
             Today
           </Button>
         </div>
 
         <Button variant="ghost" size="icon" onClick={handleNextWeek}>
-          <ChevronRight className="h-5 w-5 text-zinc-400" />
+          <ChevronRight className="h-5 w-5 text-stone-400" />
         </Button>
       </div>
 
       {/* Color Legend */}
-      <div className="flex items-center gap-3 px-4 py-1.5 border-b border-white/[0.04] overflow-x-auto whitespace-nowrap">
+      <div className="flex items-center gap-3 px-4 py-1.5 border-b border-stone-200 overflow-x-auto whitespace-nowrap">
         {[
           { color: "bg-blue-600", label: "Classes" },
           { color: "bg-green-500", label: "Gym" },
           { color: "bg-cyan-500", label: "Swimming" },
           { color: "bg-purple-500", label: "Study" },
-          { color: "bg-orange-500", label: "Projects" },
-          { color: "bg-zinc-500", label: "Free" },
+          { color: "bg-indigo-600", label: "Projects" },
+          { color: "bg-stone-500", label: "Free" },
           { color: "bg-indigo-500", label: "Sleep" },
         ].map(item => (
           <div key={item.label} className="flex items-center gap-1.5">
             <div className={`w-2 h-2 rounded-full ${item.color}`}/>
-            <span className="text-[10px] text-white/30">{item.label}</span>
+            <span className="text-[10px] text-stone-400">{item.label}</span>
           </div>
         ))}
       </div>
@@ -111,14 +111,14 @@ export default function WeekView({ blocks, weekStart }: WeekViewProps) {
       {/* Calendar grid */}
       <div className="flex flex-1 overflow-hidden">
         {/* Time gutter */}
-        <div className="flex w-12 flex-shrink-0 flex-col border-r border-white/[0.04]">
+        <div className="flex w-12 flex-shrink-0 flex-col border-r border-stone-200">
           {/* Spacer for day header */}
-          <div className="h-[52px] border-b border-white/[0.04]" />
+          <div className="h-[52px] border-b border-stone-200" />
           <div className="relative" style={{ height: `${TOTAL_HOURS * HOUR_HEIGHT}px` }}>
             {Array.from({ length: TOTAL_HOURS }, (_, i) => (
               <div
                 key={i}
-                className="absolute right-2 -translate-y-1/2 text-[10px] text-white/25 font-mono"
+                className="absolute right-2 -translate-y-1/2 text-[10px] text-stone-300 font-mono"
                 style={{ top: `${i * HOUR_HEIGHT}px` }}
               >
                 {START_HOUR + i > 12

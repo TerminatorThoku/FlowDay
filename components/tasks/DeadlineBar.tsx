@@ -30,19 +30,19 @@ function getDeadlineInfo(dueDate: string) {
     flashing = true;
   } else if (hoursLeft < 24) {
     label = "Due tomorrow!";
-    color = "text-red-400";
+    color = "text-red-600";
     barColor = "bg-red-500";
   } else if (daysLeft <= 3) {
     label = `${daysLeft} day${daysLeft === 1 ? "" : "s"} left`;
-    color = "text-orange-400";
-    barColor = "bg-orange-500";
+    color = "text-amber-600";
+    barColor = "bg-amber-500";
   } else if (daysLeft <= 7) {
     label = `${daysLeft} days left`;
-    color = "text-yellow-400";
-    barColor = "bg-yellow-500";
+    color = "text-amber-600";
+    barColor = "bg-amber-500";
   } else {
     label = `${daysLeft} days left`;
-    color = "text-green-400";
+    color = "text-green-600";
     barColor = "bg-green-500";
   }
 
@@ -64,7 +64,7 @@ export default function DeadlineBar({ dueDate }: DeadlineBarProps) {
           {info.label}
         </span>
       </div>
-      <div className="h-[3px] w-full overflow-hidden rounded-full bg-white/[0.06]">
+      <div className="h-[4px] w-full overflow-hidden rounded-full bg-stone-100">
         <div
           className={cn("h-full rounded-full transition-all duration-500", info.barColor, info.flashing && "animate-pulse")}
           style={{ width: `${info.elapsed}%` }}

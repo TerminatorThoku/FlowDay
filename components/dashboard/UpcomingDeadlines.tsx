@@ -32,13 +32,13 @@ export default function UpcomingDeadlines({ tasks }: UpcomingDeadlinesProps) {
   if (deadlineTasks.length === 0) {
     return (
       <div>
-        <h2 className="mb-3 text-[11px] font-semibold uppercase tracking-wider text-white/30">
+        <h2 className="mb-3 text-[11px] font-semibold uppercase tracking-wider text-stone-400">
           Upcoming Deadlines
         </h2>
-        <Card className="border-zinc-800 bg-zinc-900/50">
+        <Card className="border-stone-200 bg-white">
           <CardContent className="flex flex-col items-center gap-2 p-6">
-            <CalendarDays className="h-8 w-8 text-zinc-600" />
-            <p className="text-sm text-zinc-500">No upcoming deadlines</p>
+            <CalendarDays className="h-8 w-8 text-stone-600" />
+            <p className="text-sm text-stone-500">No upcoming deadlines</p>
           </CardContent>
         </Card>
       </div>
@@ -47,23 +47,23 @@ export default function UpcomingDeadlines({ tasks }: UpcomingDeadlinesProps) {
 
   return (
     <div>
-      <h2 className="mb-3 text-[11px] font-semibold uppercase tracking-wider text-white/30">
+      <h2 className="mb-3 text-[11px] font-semibold uppercase tracking-wider text-stone-400">
         Upcoming Deadlines
       </h2>
       <div className="space-y-2">
         {deadlineTasks.map((task) => (
           <Card
             key={task.id}
-            className="border-zinc-800/50 bg-zinc-900/50"
+            className="border-stone-200 bg-white"
           >
             <CardContent className="p-3">
               <div className="flex items-start justify-between">
                 <div className="flex-1">
-                  <p className="text-sm font-medium text-zinc-200">
+                  <p className="text-sm font-medium text-stone-800">
                     {task.title}
                   </p>
                   {task.project_id && (
-                    <p className="text-xs text-zinc-500">
+                    <p className="text-xs text-stone-500">
                       Project task
                     </p>
                   )}
