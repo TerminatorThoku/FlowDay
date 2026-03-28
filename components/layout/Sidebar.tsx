@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Calendar, CheckSquare, FolderKanban, Zap, Target, Dumbbell, Flame, TrendingUp, GraduationCap, BarChart3, Settings, ChevronDown } from "lucide-react";
+import { Home, Calendar, CheckSquare, FolderKanban, Zap, Target, Dumbbell, Flame, TrendingUp, GraduationCap, BarChart3, Settings, ChevronDown, Timer, Trophy } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface SidebarProps { userName: string }
@@ -16,6 +16,7 @@ const navSections = [
   ]},
   { label: "TRACKING", items: [
     { label: "Focus", icon: Zap, path: "/focus" },
+    { label: "Timer", icon: Timer, path: "/timer" },
     { label: "Habits", icon: Target, path: "/habits" },
     { label: "Lifestyle", icon: Dumbbell, path: "/lifestyle" },
     { label: "Streaks", icon: Flame, path: "/streaks" },
@@ -24,6 +25,7 @@ const navSections = [
     { label: "Stats", icon: TrendingUp, path: "/stats" },
     { label: "GPA", icon: GraduationCap, path: "/gpa" },
     { label: "Report", icon: BarChart3, path: "/report" },
+    { label: "Achievements", icon: Trophy, path: "/achievements" },
   ]},
 ];
 

@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
+import { useRouter } from "next/navigation";
 import { format } from "date-fns";
 import {
   Clock,
@@ -21,6 +22,7 @@ import QuickActions from "./QuickActions";
 import StreakBar from "./StreakBar";
 import UpcomingDeadlines from "./UpcomingDeadlines";
 import OptimizeButton from "./OptimizeButton";
+import SmartSuggestions from "./SmartSuggestions";
 import SpotifyWidget from "@/components/shared/SpotifyWidget";
 import { cn } from "@/lib/utils";
 import type { TimeBlock, Task } from "@/types/schedule";
@@ -101,6 +103,7 @@ export default function TodayView({
   studyPlaylistUrl,
   gymPlaylistUrl,
 }: TodayViewProps) {
+  const router = useRouter();
   const now = new Date();
   const currentMinutes = now.getHours() * 60 + now.getMinutes();
   const todayStr = format(now, "yyyy-MM-dd");
@@ -191,6 +194,11 @@ export default function TodayView({
           </div>
         </AnimateIn>
       )}
+
+      {/* Smart Suggestions */}
+      <AnimateIn delay={0.15}>
+        <SmartSuggestions />
+      </AnimateIn>
 
       {/* Quick Stats Row */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mt-3">
@@ -298,17 +306,15 @@ export default function TodayView({
                 </div>
               )}
 
-              {onStartFocus && (
-                <div className="mt-4 flex justify-center">
-                  <Button
-                    onClick={onStartFocus}
-                    className="rounded-full px-8"
-                  >
-                    <Timer className="mr-2 h-4 w-4" />
-                    Start Focus
-                  </Button>
-                </div>
-              )}
+              <div className="mt-4 flex justify-center">
+                <Button
+                  onClick={() => router.push("/timer")}
+                  className="rounded-full px-8"
+                >
+                  <Timer className="mr-2 h-4 w-4" />
+                  Start Focus
+                </Button>
+              </div>
             </CardContent>
           </Card>
         </AnimateIn>

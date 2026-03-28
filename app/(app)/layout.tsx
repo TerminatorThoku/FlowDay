@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import AppHeader from "@/components/layout/AppHeader";
 import BottomNav from "@/components/layout/BottomNav";
 import Sidebar from "@/components/layout/Sidebar";
+import CommandPalette from "@/components/shared/CommandPalette";
+import QuickAddTask from "@/components/shared/QuickAddTask";
 
 export default function AppLayout({
   children,
@@ -44,8 +46,8 @@ export default function AppLayout({
     return (
       <div className="flex min-h-screen items-center justify-center">
         <div className="flex flex-col items-center gap-3">
-          <div className="h-8 w-8 animate-spin rounded-full border-2 border-orange-500 border-t-transparent" />
-          <span className="text-sm text-white/30">Loading...</span>
+          <div className="h-8 w-8 animate-spin rounded-full border-2 border-indigo-600 border-t-transparent" />
+          <span className="text-sm text-stone-400">Loading...</span>
         </div>
       </div>
     );
@@ -66,6 +68,10 @@ export default function AppLayout({
         {/* Mobile bottom nav */}
         <BottomNav />
       </div>
+
+      {/* Global overlays */}
+      <CommandPalette />
+      <QuickAddTask />
     </div>
   );
 }

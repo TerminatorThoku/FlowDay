@@ -3,17 +3,18 @@ import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Home, Calendar, CheckSquare, Zap, MoreHorizontal, Target, Dumbbell, TrendingUp, Settings, GraduationCap, BarChart3, Flame } from "lucide-react";
+import { Home, Calendar, CheckSquare, Zap, MoreHorizontal, Target, Dumbbell, TrendingUp, Settings, GraduationCap, BarChart3, Flame, Timer } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const tabs = [
   { label: "Dashboard", icon: Home, path: "/" },
   { label: "Calendar", icon: Calendar, path: "/calendar" },
   { label: "Tasks", icon: CheckSquare, path: "/tasks" },
-  { label: "Focus", icon: Zap, path: "/focus" },
+  { label: "Timer", icon: Timer, path: "/timer" },
 ] as const;
 
 const moreItems = [
+  { label: "Focus", icon: Zap, path: "/focus" },
   { label: "Habits", icon: Target, path: "/habits" },
   { label: "Lifestyle", icon: Dumbbell, path: "/lifestyle" },
   { label: "Streaks", icon: Flame, path: "/streaks" },
